@@ -7,4 +7,6 @@ target 'TrippelRow Online' do
 
   # Pods for TrippelRow Online
 
+  pod 'Firebase/Core'
+
 end
