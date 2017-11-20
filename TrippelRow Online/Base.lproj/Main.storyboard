@@ -1,24 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Log View-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LogView" customModule="TrippelRow_Online" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="G5v-tU-bdw">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H5X-Hg-wZN">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="21"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.44582084760273971" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="EZd-aq-REX"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logga" translatesAutoresizingMaskIntoConstraints="NO" id="pBB-Ed-3PN">
+                                <rect key="frame" x="40" y="29" width="335" height="97"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="97" id="nZZ-hZ-s90"/>
+                                    <constraint firstAttribute="width" constant="335" id="uuj-QS-dNI"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="pBB-Ed-3PN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2zF-83-clM"/>
+                            <constraint firstItem="G5v-tU-bdw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="34A-h8-vFN"/>
+                            <constraint firstItem="H5X-Hg-wZN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="9he-YN-uEo"/>
+                            <constraint firstItem="pBB-Ed-3PN" firstAttribute="top" secondItem="H5X-Hg-wZN" secondAttribute="bottom" constant="8" id="KXE-9t-hmS"/>
+                            <constraint firstAttribute="trailing" secondItem="H5X-Hg-wZN" secondAttribute="trailing" id="OPi-7c-Oko"/>
+                            <constraint firstItem="G5v-tU-bdw" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="YEi-T2-ZZO"/>
+                            <constraint firstItem="G5v-tU-bdw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="dp8-0n-us2"/>
+                            <constraint firstItem="H5X-Hg-wZN" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="oyV-me-uSZ"/>
+                            <constraint firstItem="G5v-tU-bdw" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="zrK-df-VhQ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="aBH-Ar-yJG"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.23188405797103" y="132.88043478260872"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Background" width="414" height="736"/>
+        <image name="Logga" width="243" height="104"/>
+    </resources>
 </document>
