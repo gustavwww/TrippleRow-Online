@@ -14,6 +14,9 @@
 		9753E13E1FC324D80057540F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9753E13D1FC324D80057540F /* Assets.xcassets */; };
 		9753E1411FC324D80057540F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9753E13F1FC324D80057540F /* LaunchScreen.storyboard */; };
 		977560811FC329080089B394 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 977560801FC329080089B394 /* GoogleService-Info.plist */; };
+		97A8B4391FC4AF9D00254183 /* LoginTextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8B4381FC4AF9D00254183 /* LoginTextFields.swift */; };
+		97A8B43C1FC4BC1F00254183 /* LogScreenButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8B43B1FC4BC1F00254183 /* LogScreenButtons.swift */; };
+		97A8B43E1FC4C2B200254183 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8B43D1FC4C2B200254183 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,9 @@
 		9753E1401FC324D80057540F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9753E1421FC324D80057540F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		977560801FC329080089B394 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		97A8B4381FC4AF9D00254183 /* LoginTextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextFields.swift; sourceTree = "<group>"; };
+		97A8B43B1FC4BC1F00254183 /* LogScreenButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogScreenButtons.swift; sourceTree = "<group>"; };
+		97A8B43D1FC4C2B200254183 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FA41B9369C5609A2477CBD82 /* Pods_TrippelRow_Online.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrippelRow_Online.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -104,6 +110,8 @@
 		977560831FC32BCF0089B394 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				97A8B4381FC4AF9D00254183 /* LoginTextFields.swift */,
+				97A8B43B1FC4BC1F00254183 /* LogScreenButtons.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -111,6 +119,7 @@
 		977560841FC32BD60089B394 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				97A8B43D1FC4C2B200254183 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -193,9 +202,26 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TrippelRow Online/Pods-TrippelRow Online-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -223,13 +249,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TrippelRow Online-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -240,6 +269,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9753E1391FC324D80057540F /* LogView.swift in Sources */,
+				97A8B4391FC4AF9D00254183 /* LoginTextFields.swift in Sources */,
+				97A8B43C1FC4BC1F00254183 /* LogScreenButtons.swift in Sources */,
+				97A8B43E1FC4C2B200254183 /* User.swift in Sources */,
 				9753E1371FC324D80057540F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

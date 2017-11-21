@@ -8,14 +8,51 @@
 
 import UIKit
 
-class LogView: UIViewController {
+class LogView: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var emailField: LoginTextFields!
+    @IBOutlet weak var passwordField: LoginTextFields!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupTextFields()
+        
+        
+    }
+    
+    func setupTextFields() {
+        
+        emailField.delegate = self
+        passwordField.delegate = self
+        
+        emailField.keyboardType = .emailAddress
+        passwordField.keyboardType = .default
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        view.endEditing(true)
+        
+        return true
+    }
+    
+    @IBAction func loginPressed(_ sender: LogScreenButtons) {
+        
+        
         
         
         
     }
+    
+    @IBAction func registerPressed(_ sender: LogScreenButtons) {
+        
+        
+        
+    }
+    
+    
     
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0910"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6CACCE97487A321F5606BD8668DABAFF"
+               BlueprintIdentifier = "03FA1FBFE71447FC872DEBFA716EBE25"
                BuildableName = "Pods_TrippelRow_Online.framework"
                BlueprintName = "Pods-TrippelRow Online"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6CACCE97487A321F5606BD8668DABAFF"
+            BlueprintIdentifier = "03FA1FBFE71447FC872DEBFA716EBE25"
             BuildableName = "Pods_TrippelRow_Online.framework"
             BlueprintName = "Pods-TrippelRow Online"
             ReferencedContainer = "container:Pods.xcodeproj">
