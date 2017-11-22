@@ -39,7 +39,7 @@ __attribute__((noinline)) static size_t remaining_stack_size(size_t *restrict to
 
 @interface BFExecutor ()
 
-@property (nonatomic, copy) void(^block)(void(^block)());
+@property (nonatomic, copy) void(^block)(void(^block)(void));
 
 @end
 
@@ -51,7 +51,7 @@ __attribute__((noinline)) static size_t remaining_stack_size(size_t *restrict to
     static BFExecutor *defaultExecutor = NULL;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        defaultExecutor = [self executorWithBlock:^void(void(^block)()) {
+        defaultExecutor = [self executorWithBlock:^void(void(^block)(void)) {
             // We prefer to run everything possible immediately, so that there is callstack information
             // when debugging. However, we don't want the stack to get too deep, so if the remaining stack space
             // is less than 10% of the total space, we dispatch to another GCD queue.

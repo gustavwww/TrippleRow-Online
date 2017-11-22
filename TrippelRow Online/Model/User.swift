@@ -10,88 +10,36 @@ import Foundation
 import Firebase
 import FirebaseAuth
 
-class User {
+class MyUser { //Not yet done, requires initializers
     
-    private var _uid: String!
-    private var _email: String!
+    var firUser: User?
     
-    var uid: String {
-        
-            if _uid == nil {
-                _uid = "1234567"
-            }
-            
-            return _uid
-        
-    }
     
-    var email: String {
-        if _email == nil {
-            _email = "nil@nothing.com"
-        }
-        
-        return _email
+    init(firUser: User) {
+        self.firUser = firUser
     }
     
     
-    init?(signIn email: String, password: String) {
-        
-        var didComplete = false
-        
-        signInUser(email: email, password: password) { (completed) in
-            didComplete = completed
-        }
-        
-        if !didComplete {
-            return nil
-        }
-        
-    }
-    
-    init?(signUp email: String, password: String) {
-        
-        var didComplete = false
-        
-        createUser(email: email, password: password) { (completed) in
-            didComplete = completed
-        }
-        
-        if !didComplete {
-            return nil
-        }
-        
-    }
-    
-    
-    private func signInUser(email: String, password: String, completed: @escaping (Bool) -> Void) {
+    func signInUser(email: String, password: String, completed: @escaping (Bool) -> Void) {
         
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             
             if error != nil { //Error handling sign in
                 
+                print(String(describing: error?.localizedDescription))
                 completed(false)
                 
                 return
             }
             
-            if let user = user {
-                
-                self._uid = user.uid
-                self._email = user.email
-                
-                completed(true)
-                
-            } else {
-                //Error
-                completed(false)
-            }
+            self.firUser = user
             
-            
+            completed(true)
         }
         
     }
     
-    private func createUser(email: String, password: String, completed: @escaping (Bool) -> Void) {
+    func createUser(email: String, password: String, completed: @escaping (Bool) -> Void) {
         
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             
@@ -100,18 +48,38 @@ class User {
                 return
             }
             
-            if let user = user {
+            self.firUser = user
+            
+            completed(true)
+            
+        }
+        
+    }
+    
+    func createUser(credential: AuthCredential, completed: @escaping (Bool) -> Void) {
+        
+        Auth.auth().signIn(with: credential) { (user, error) in
+            
+            if error != nil { //Error signing in with FaceBook
                 
-                self._uid = user.uid
-                self._email = user.email
-                
-                completed(true)
-                
-            } else {
-                //Error
                 completed(false)
+                return
             }
             
+            self.firUser = user
+            
+            _ = completed(true)
+            
+        }
+        
+    }
+    
+    func signOut() {
+        
+        do {
+            try Auth.auth().signOut()
+        } catch let error {
+            print("Error signing out: \(error.localizedDescription)")
         }
         
     }

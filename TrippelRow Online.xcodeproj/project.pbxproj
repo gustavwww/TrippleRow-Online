@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		7BC60714B72A6E428B74DB91 /* Pods_TrippelRow_Online.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA41B9369C5609A2477CBD82 /* Pods_TrippelRow_Online.framework */; };
+		97085E4C1FC60C0F00F5B0B1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97085E4B1FC60C0F00F5B0B1 /* User.swift */; };
 		9753E1371FC324D80057540F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9753E1361FC324D80057540F /* AppDelegate.swift */; };
 		9753E1391FC324D80057540F /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9753E1381FC324D80057540F /* LogView.swift */; };
 		9753E13C1FC324D80057540F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9753E13A1FC324D80057540F /* Main.storyboard */; };
 		9753E13E1FC324D80057540F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9753E13D1FC324D80057540F /* Assets.xcassets */; };
 		9753E1411FC324D80057540F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9753E13F1FC324D80057540F /* LaunchScreen.storyboard */; };
+		976ECE491FC5F6C200F7748F /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976ECE481FC5F6C200F7748F /* MainVC.swift */; };
 		977560811FC329080089B394 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 977560801FC329080089B394 /* GoogleService-Info.plist */; };
 		97A8B4391FC4AF9D00254183 /* LoginTextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8B4381FC4AF9D00254183 /* LoginTextFields.swift */; };
 		97A8B43C1FC4BC1F00254183 /* LogScreenButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8B43B1FC4BC1F00254183 /* LogScreenButtons.swift */; };
-		97A8B43E1FC4C2B200254183 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8B43D1FC4C2B200254183 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5CC52BBAC9BEB656262131C0 /* Pods-TrippelRow Online.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrippelRow Online.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrippelRow Online/Pods-TrippelRow Online.debug.xcconfig"; sourceTree = "<group>"; };
 		6F8EDAC56FECD37F2D4BD0C6 /* Pods-TrippelRow Online.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrippelRow Online.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrippelRow Online/Pods-TrippelRow Online.release.xcconfig"; sourceTree = "<group>"; };
+		97085E4B1FC60C0F00F5B0B1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9753E1331FC324D80057540F /* TrippelRow Online.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TrippelRow Online.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9753E1361FC324D80057540F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9753E1381FC324D80057540F /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
@@ -29,10 +31,10 @@
 		9753E13D1FC324D80057540F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9753E1401FC324D80057540F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9753E1421FC324D80057540F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		976ECE481FC5F6C200F7748F /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		977560801FC329080089B394 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		97A8B4381FC4AF9D00254183 /* LoginTextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextFields.swift; sourceTree = "<group>"; };
 		97A8B43B1FC4BC1F00254183 /* LogScreenButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogScreenButtons.swift; sourceTree = "<group>"; };
-		97A8B43D1FC4C2B200254183 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FA41B9369C5609A2477CBD82 /* Pods_TrippelRow_Online.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrippelRow_Online.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				9753E1381FC324D80057540F /* LogView.swift */,
+				976ECE481FC5F6C200F7748F /* MainVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -119,7 +122,7 @@
 		977560841FC32BD60089B394 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				97A8B43D1FC4C2B200254183 /* User.swift */,
+				97085E4B1FC60C0F00F5B0B1 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -269,9 +272,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9753E1391FC324D80057540F /* LogView.swift in Sources */,
+				976ECE491FC5F6C200F7748F /* MainVC.swift in Sources */,
+				97085E4C1FC60C0F00F5B0B1 /* User.swift in Sources */,
 				97A8B4391FC4AF9D00254183 /* LoginTextFields.swift in Sources */,
 				97A8B43C1FC4BC1F00254183 /* LogScreenButtons.swift in Sources */,
-				97A8B43E1FC4C2B200254183 /* User.swift in Sources */,
 				9753E1371FC324D80057540F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,6 +416,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3KE4G6G7E4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "TrippelRow Online/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gustavwww.TrippelRow-Online";
@@ -428,6 +436,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3KE4G6G7E4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "TrippelRow Online/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gustavwww.TrippelRow-Online";

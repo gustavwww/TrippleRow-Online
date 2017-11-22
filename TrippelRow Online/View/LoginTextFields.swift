@@ -24,6 +24,12 @@ class LoginTextFields: UITextField {
         layer.shadowOffset = CGSize(width: 2, height: 2)
         
         
+    }
+    
+    override func layerWillDraw(_ layer: CALayer) {
+        super.layerWillDraw(layer)
+        
+        layer.cornerRadius = 5
         
     }
 

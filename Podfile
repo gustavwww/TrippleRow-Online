@@ -9,6 +9,7 @@ target 'TrippelRow Online' do
 
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'FacebookCore'
   pod 'FacebookLogin'
 
 end

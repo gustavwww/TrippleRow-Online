@@ -237,27 +237,28 @@ static NSString *const BFWebViewAppLinkResolverShouldFallbackKey = @"should_fall
     NSMutableArray *linkTargets = [NSMutableArray array];
 
     NSArray *platformData = nil;
-    switch (UI_USER_INTERFACE_IDIOM()) {
-        case UIUserInterfaceIdiomPad:
-            platformData = @[ appLinkDict[BFWebViewAppLinkResolverIPadKey] ?: @{},
-                              appLinkDict[BFWebViewAppLinkResolverIOSKey] ?: @{} ];
-            break;
-        case UIUserInterfaceIdiomPhone:
-            platformData = @[ appLinkDict[BFWebViewAppLinkResolverIPhoneKey] ?: @{},
-                              appLinkDict[BFWebViewAppLinkResolverIOSKey] ?: @{} ];
-            break;
+    
+        switch (UI_USER_INTERFACE_IDIOM()) {
+                case UIUserInterfaceIdiomPad:
+                platformData = @[ appLinkDict[BFWebViewAppLinkResolverIPadKey] ?: @{},
+                                  appLinkDict[BFWebViewAppLinkResolverIOSKey] ?: @{} ];
+                break;
+                case UIUserInterfaceIdiomPhone:
+                platformData = @[ appLinkDict[BFWebViewAppLinkResolverIPhoneKey] ?: @{},
+                                  appLinkDict[BFWebViewAppLinkResolverIOSKey] ?: @{} ];
+                break;
 #ifdef __TVOS_9_0
-        case UIUserInterfaceIdiomTV:
+                case UIUserInterfaceIdiomTV:
 #endif
 #ifdef __IPHONE_9_3
-        case UIUserInterfaceIdiomCarPlay:
+                case UIUserInterfaceIdiomCarPlay:
 #endif
-        case UIUserInterfaceIdiomUnspecified:
-        default:
-            // Future-proofing. Other User Interface idioms should only hit ios.
-            platformData = @[ appLinkDict[BFWebViewAppLinkResolverIOSKey] ?: @{} ];
-            break;
-    }
+                case UIUserInterfaceIdiomUnspecified:
+            default:
+                // Future-proofing. Other User Interface idioms should only hit ios.
+                platformData = @[ appLinkDict[BFWebViewAppLinkResolverIOSKey] ?: @{} ];
+                break;
+        }
 
     for (NSArray *platformObjects in platformData) {
         for (NSDictionary *platformDict in platformObjects) {
