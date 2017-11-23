@@ -8,24 +8,17 @@
 
 import UIKit
 
-class LogScreenButtons: UIButton {
+class LogScreenButtons: UIButton, Shadow {
+    
+    
 
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
+    override func awakeFromNib() {
+        super.awakeFromNib()
         
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.5
-        layer.shadowOffset = CGSize(width: 2, height: 2)
-        
+        layer.cornerRadius = bounds.height / 2
+        putShadow(offset: CGSize(width: 2, height: 2))
         
     }
     
-    override func layerWillDraw(_ layer: CALayer) {
-        super.layerWillDraw(layer)
-        
-        layer.cornerRadius = 3
-        
-        
-    }
     
 }

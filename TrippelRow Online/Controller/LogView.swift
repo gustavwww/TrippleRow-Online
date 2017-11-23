@@ -23,6 +23,13 @@ class LogView: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         setupTextFields()
+        closeKeyboardFunction()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         checkIfOnline()
         
     }
@@ -71,6 +78,7 @@ class LogView: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    
     @IBAction func loginPressed(_ sender: LogScreenButtons) { //Login Button
         
         if let email = emailField.text , email != "" {
@@ -110,10 +118,6 @@ class LogView: UIViewController, UITextFieldDelegate {
         }
         
     }
-    
-    
-    
-
 
 }
 

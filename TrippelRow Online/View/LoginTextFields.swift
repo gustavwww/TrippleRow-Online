@@ -8,8 +8,8 @@
 
 import UIKit
 
-class LoginTextFields: UITextField {
-
+class LoginTextFields: UITextField, Shadow {
+    
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
@@ -19,17 +19,9 @@ class LoginTextFields: UITextField {
         
         attributedPlaceholder = NSAttributedString(string: self.placeholder!, attributes: [NSAttributedStringKey.font : font!, NSAttributedStringKey.foregroundColor : color])
         
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.5
-        layer.shadowOffset = CGSize(width: 2, height: 2)
-        
-        
-    }
-    
-    override func layerWillDraw(_ layer: CALayer) {
-        super.layerWillDraw(layer)
-        
-        layer.cornerRadius = 5
+        layer.cornerRadius = bounds.height / 2
+        layer.borderColor = UIColor.white.cgColor
+        layer.borderWidth = 1
         
     }
 

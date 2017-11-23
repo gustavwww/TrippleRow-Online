@@ -20,5 +20,18 @@ class MainVC: UIViewController {
         
     }
     
-
+    @IBAction func menuBtnPressed(_ sender: UIButton) {
+        
+        performSegue(withIdentifier: "toMenuVC", sender: nil)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let dest = segue.destination as? MenuVC {
+            dest.user = self.user
+        }
+        
+    }
+    
 }
