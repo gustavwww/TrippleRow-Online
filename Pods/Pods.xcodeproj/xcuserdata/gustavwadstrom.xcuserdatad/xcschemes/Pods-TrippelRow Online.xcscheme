@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "03FA1FBFE71447FC872DEBFA716EBE25"
+               BlueprintIdentifier = "BFAEEB1B75BA6794B68CCF58060DE178"
                BuildableName = "Pods_TrippelRow_Online.framework"
                BlueprintName = "Pods-TrippelRow Online"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "03FA1FBFE71447FC872DEBFA716EBE25"
+            BlueprintIdentifier = "BFAEEB1B75BA6794B68CCF58060DE178"
             BuildableName = "Pods_TrippelRow_Online.framework"
             BlueprintName = "Pods-TrippelRow Online"
             ReferencedContainer = "container:Pods.xcodeproj">

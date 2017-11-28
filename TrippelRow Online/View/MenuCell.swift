@@ -12,6 +12,7 @@ class MenuCell: UITableViewCell {
 
     @IBOutlet weak var menuImage: UIImageView!
     @IBOutlet weak var menuLabel: UILabel!
+    @IBOutlet weak var view: UIView!
     
     func setupCell(image: String, label: String) {
         

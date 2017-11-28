@@ -12,9 +12,10 @@ import Firebase
 class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var closeView: UIView!
     
-    var user: User!
-    let contents = ["Logga ut"]
+    var player: Player!
+    let contents = ["Profil", "Vänner", "Logga ut"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,21 +23,19 @@ class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         
-        initializeExit()
+        setupCloseGesture()
         
     }
     
-    func initializeExit() {
+    func setupCloseGesture() {
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didPressOutsideMenu))
-        view.addGestureRecognizer(tapGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesturePressed))
+        closeView.addGestureRecognizer(tapGesture)
         
     }
     
-    @objc func didPressOutsideMenu() {
-        
-        navigationController?.popViewController(animated: true)
-        
+    @objc func tapGesturePressed() {
+        performSegue(withIdentifier: "menuUnwind", sender: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -49,8 +48,10 @@ class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.row == 0 {
-            logout()
+        if contents[indexPath.row] == "Logga ut" {
+            signOut()
+        } else if contents[indexPath.row] == "Vänner" {
+            performSegue(withIdentifier: "toFriendsVC", sender: nil)
         }
         
     }
@@ -59,6 +60,11 @@ class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as? MenuCell {
             
+            if contents[indexPath.row] == "Vänner" {
+                cell.setupCell(image: "Friends", label: contents[indexPath.row])
+                return cell
+            }
+            
             cell.setupCell(image: contents[indexPath.row], label: contents[indexPath.row])
             return cell
         }
@@ -66,16 +72,45 @@ class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return MenuCell()
     }
     
-    func logout() {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        do {
-            
-            try Auth.auth().signOut()
-            
-        } catch let error as NSError {
-            print("Error logging out: \(String(describing: error.localizedDescription))")
+        return 100.0
+    }
+    
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? MenuCell {
+            cell.view.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
         }
         
+    }
+    
+    
+    func signOut() {
+        
+        player.signOut()
+        
+        dismiss(animated: true, completion: nil)
+        presentingViewController?.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func backPressed(_ sender: UIButton) {
+        print("Button pressed")
+        performSegue(withIdentifier: "menuUnwind", sender: nil)
+    }
+    
+    @IBAction func unwindToMenu(segue: UIStoryboardSegue) {}
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let dest = segue.destination as? MainVC {
+            dest.player = self.player
+        }
+        if let dest = segue.destination as? FriendsVC {
+            dest.player = self.player
+        }
         
     }
     
