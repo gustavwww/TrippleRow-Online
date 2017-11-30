@@ -52,8 +52,10 @@ class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Play
         
         if contents[indexPath.row] == "Logga ut" {
             signOut()
+            
         } else if contents[indexPath.row] == "Vänner" {
             performSegue(withIdentifier: "toFriendsVC", sender: nil)
+            
         }
         
     }
@@ -102,7 +104,6 @@ class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Play
     }
     
     @IBAction func backPressed(_ sender: UIButton) {
-        print("Button pressed")
         performSegue(withIdentifier: "unwindFromMenuVC", sender: nil)
     }
     

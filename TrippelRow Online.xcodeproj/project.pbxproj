@@ -26,6 +26,7 @@
 		977560811FC329080089B394 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 977560801FC329080089B394 /* GoogleService-Info.plist */; };
 		977DE3731FC7386B00971329 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977DE3721FC7386B00971329 /* HeaderView.swift */; };
 		977DE3761FC738AC00971329 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977DE3751FC738AC00971329 /* Shadow.swift */; };
+		97944F681FD0679E00EBC42A /* StringError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97944F671FD0679E00EBC42A /* StringError.swift */; };
 		97A8B4391FC4AF9D00254183 /* LoginTextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8B4381FC4AF9D00254183 /* LoginTextFields.swift */; };
 		97A8B43C1FC4BC1F00254183 /* LogScreenButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8B43B1FC4BC1F00254183 /* LogScreenButtons.swift */; };
 		97E253271FC73DD6004415D8 /* LogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977DE38A1FC73C2A00971329 /* LogVC.swift */; };
@@ -61,6 +62,7 @@
 		977DE3751FC738AC00971329 /* Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
 		977DE3891FC73C2A00971329 /* MainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		977DE38A1FC73C2A00971329 /* LogVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogVC.swift; sourceTree = "<group>"; };
+		97944F671FD0679E00EBC42A /* StringError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringError.swift; sourceTree = "<group>"; };
 		97A8B4381FC4AF9D00254183 /* LoginTextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextFields.swift; sourceTree = "<group>"; };
 		97A8B43B1FC4BC1F00254183 /* LogScreenButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogScreenButtons.swift; sourceTree = "<group>"; };
 		97EF648E1FCDD6F3002197EB /* LoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadView.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			children = (
 				97085E4B1FC60C0F00F5B0B1 /* Player.swift */,
 				97EF64941FCE11D0002197EB /* DBUser.swift */,
+				97944F671FD0679E00EBC42A /* StringError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				9731E5A41FCC9B49007E2A4E /* UnwindSlideSegue.swift in Sources */,
 				9731E59C1FCC8D87007E2A4E /* NewGameVC.swift in Sources */,
 				9757361C1FCD915500728143 /* AddFriendVC.swift in Sources */,
+				97944F681FD0679E00EBC42A /* StringError.swift in Sources */,
 				97532F401FCF866700EF8E78 /* RegisterVC.swift in Sources */,
 				97E253281FC73DD6004415D8 /* MainVC.swift in Sources */,
 				97EF64951FCE11D0002197EB /* DBUser.swift in Sources */,

@@ -33,13 +33,6 @@ class LogVC: UIViewController, UITextFieldDelegate, PlayerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        checkIfOnline()
-        
-    }
-    
-    
-    func checkIfOnline() {
-        
         _ = player.checkIfOnline()
         
     }
@@ -101,9 +94,9 @@ class LogVC: UIViewController, UITextFieldDelegate, PlayerDelegate {
                 let credential = FacebookAuthProvider.credential(withAccessToken: tokenString)
                 self.player.signInUser(credential: credential)
                 
-                self.removeActivityIndicator()
                 return
             }
+            
             self.removeActivityIndicator()
         }
     }
@@ -114,16 +107,6 @@ class LogVC: UIViewController, UITextFieldDelegate, PlayerDelegate {
         removeActivityIndicator()
         
     }
-    
-    func errorOccured(error: Error) {
-        removeActivityIndicator()
-        let alert = UIAlertController(title: "Fel", message: "Ett fel inträffade! \(error.localizedDescription)", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Stäng", style: .default, handler: nil))
-        
-        self.present(alert, animated: true, completion: nil)
-        
-    }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

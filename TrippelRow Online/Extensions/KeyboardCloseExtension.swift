@@ -17,7 +17,7 @@ extension UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
-    @objc func closeKeyboard() {
+    @objc fileprivate func closeKeyboard() {
         view.endEditing(true)
     }
     

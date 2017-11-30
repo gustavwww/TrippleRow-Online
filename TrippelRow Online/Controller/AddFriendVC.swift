@@ -25,6 +25,8 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        closeKeyboardFunction()
+        
         searchBar.delegate = self
         
         tableView.delegate = self
@@ -34,6 +36,7 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         users = [DBUser]()
         
+        showActivityIndicator()
         player.singleObserve {
             
             for i in self.player.friends {
@@ -42,9 +45,14 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
                 
             }
             
+            self.removeActivityIndicator()
             self.tableView.reloadData()
         }
         
+    }
+    
+    func errorOccured(error: Error) {
+        removeActivityIndicator()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -58,12 +66,10 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         if searchBar.text == nil || searchBar.text == "" {
             
             inSearchMode = false
-            view.endEditing(true)
             
             return
         }
         inSearchMode = true
-        
         
         filteredUsers = users.filter { $0.displayName?.lowercased().range(of: searchText.lowercased()) != nil }
         
@@ -126,7 +132,6 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     func friendRequestSent(to: String) {
         
         self.removeActivityIndicator()
-        
         
     }
     

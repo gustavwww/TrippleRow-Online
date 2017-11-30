@@ -11,7 +11,7 @@ import UIKit
 class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PlayerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var noFriendsLbl: UILabel!
     
     var player: Player!
     var friends: [DBUser]?
@@ -22,8 +22,21 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.isHidden = true
+        
+        showActivityIndicator()
         player.singleObserve {
             self.friends = self.player.friends
+            self.removeActivityIndicator()
+            
+            if self.friends!.isEmpty {
+                self.tableView.isHidden = true
+                self.noFriendsLbl.isHidden = false
+                return
+            }
+            
+            self.tableView.isHidden = false
+            self.noFriendsLbl.isHidden = true
         }
         
     }

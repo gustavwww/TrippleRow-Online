@@ -13,18 +13,40 @@ import FirebaseDatabase
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-@objc protocol PlayerDelegate {
+protocol PlayerDelegate {
     
-    @objc optional func player(signedIn player: Player)
-    @objc optional func player(created player: Player)
-    @objc optional func errorOccured(error: Error)
-    @objc optional func friendRequestSent(to: String)
+    func player(signedIn player: Player)
+    func player(created player: Player)
+    func friendRequestSent(to: String)
+    
+    func errorOccured(error: Error)
     
 }
 
-class Player: NSObject {
+extension PlayerDelegate where Self: UIViewController {
     
-    var valueDidChange: (() -> Void)?
+    func player(signedIn player: Player) {}
+    func player(created player: Player) {}
+    func friendRequestSent(to: String) {}
+    
+    func errorOccured(error: Error) {
+        removeActivityIndicator()
+        
+        var errorMsg = error.localizedDescription
+        
+        if let error = error as? StringError {
+            errorMsg = error.stringDescription
+        }
+        
+        let alertController = UIAlertController(title: "Fel", message: errorMsg, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+}
+
+class Player {
     
     var firUser: User?
     var dbRef: DatabaseReference!
@@ -37,16 +59,15 @@ class Player: NSObject {
     //Global properties - Properties regarding everyone (UBUser object)
     var allUsers: [DBUser]!
     
-    override init() {
+    init() {
         dbRef = Database.database().reference()
     }
     
     init(firUser: User) {
-        super.init()
         dbRef = Database.database().reference()
         
         self.firUser = firUser
-        delegate?.player!(signedIn: self)
+        delegate?.player(signedIn: self)
     }
     
     func checkIfOnline() -> Bool {
@@ -54,7 +75,7 @@ class Player: NSObject {
         if let user = Auth.auth().currentUser {
             
             self.firUser = user
-            delegate?.player!(signedIn: self)
+            delegate?.player(signedIn: self)
             
             return true
         }
@@ -68,11 +89,11 @@ class Player: NSObject {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             
             if error != nil {
-                self.delegate?.errorOccured!(error: error!)
+                self.delegate?.errorOccured(error: StringError(ErrorType.SignInError))
             }
             
             self.firUser = user
-            self.delegate?.player!(signedIn: self)
+            self.delegate?.player(signedIn: self)
             
         }
         
@@ -84,7 +105,7 @@ class Player: NSObject {
         Auth.auth().signIn(with: credential) { (user, error) in
             
             if error != nil {
-                self.delegate?.errorOccured!(error: error!)
+                self.delegate?.errorOccured(error: StringError(ErrorType.FacebookSignInError))
             }
             
             self.firUser = user
@@ -92,7 +113,7 @@ class Player: NSObject {
             let displayName = (user?.displayName)!
             self.setDisplayName(displayName: displayName)
             
-            self.delegate?.player!(signedIn: self)
+            self.delegate?.player(signedIn: self)
         }
         
     }
@@ -103,14 +124,14 @@ class Player: NSObject {
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             
             if error != nil {
-                self.delegate?.errorOccured!(error: error!)
+                self.delegate?.errorOccured(error: StringError(ErrorType.CreateUserError))
             }
             
             self.firUser = user
             
             self.setDisplayName(displayName: displayName)
             
-            self.delegate?.player!(created: self)
+            self.delegate?.player(created: self)
         }
         
     }
@@ -122,7 +143,7 @@ class Player: NSObject {
         changeRequest?.commitChanges(completion: { (error) in
             
             if error != nil {
-                self.delegate?.errorOccured!(error: error!)
+                self.delegate?.errorOccured(error: StringError(ErrorType.DisplayNameChangeError))
                 return
             }
             self.dbRef.child("users").child((self.firUser?.uid)!).setValue(["displayName" : displayName])
@@ -135,11 +156,17 @@ class Player: NSObject {
         
         do {
             try Auth.auth().signOut()
-        } catch let error {
-            delegate?.errorOccured!(error: error)
-        }        
+        } catch {
+            delegate?.errorOccured(error: StringError(ErrorType.SignOutError))
+        }
     }
     
+    //Start listening for incoming changes.
+    func startOnserve() {
+        
+    }
+    
+    //Sending a single get request.
     func singleObserve(completed: @escaping () -> Void) { //NOT DONE
         
         if firUser == nil {
@@ -193,6 +220,8 @@ class Player: NSObject {
                     
                 }
                 completed()
+            } else {
+                self.delegate?.errorOccured(error: StringError(ErrorType.SingleObserveError))
             }
             
         }
@@ -213,7 +242,9 @@ class Player: NSObject {
                 
                 self.dbRef.child("users").child(userID).child("friendRequests").setValue(requests.append((self.firUser?.uid)!))
                 print("Friend request has been sent!")
-                self.delegate?.friendRequestSent!(to: userID)
+                self.delegate?.friendRequestSent(to: userID)
+            } else {
+                self.delegate?.errorOccured(error: StringError(ErrorType.SendFriendRequestError))
             }
             
         }

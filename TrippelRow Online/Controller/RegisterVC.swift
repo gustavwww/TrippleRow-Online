@@ -8,12 +8,14 @@
 
 import UIKit
 
-class RegisterVC: UIViewController {
+class RegisterVC: UIViewController, PlayerDelegate {
 
+    var player: Player!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        player.delegate = self
         
     }
 
