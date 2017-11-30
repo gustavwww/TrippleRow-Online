@@ -424,13 +424,28 @@
                         <viewLayoutGuide key="safeArea" id="GVd-cw-0ri"/>
                     </view>
                     <connections>
-                        <segue destination="3RG-Zj-wS8" kind="unwind" identifier="newGameUnwind" customClass="UnwindSlideSegue" customModule="TrippelRow_Online" customModuleProvider="target" unwindAction="slideUnwindSegueWithUnwindSegue:" id="9Y6-TL-HJC"/>
+                        <segue destination="3RG-Zj-wS8" kind="unwind" identifier="unwindFromNewGameVC" customClass="UnwindSlideSegue" customModule="TrippelRow_Online" customModuleProvider="target" unwindAction="unwindToMainVCWithSegue:" id="OKB-Hp-wFu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f3f-eq-fWs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="3RG-Zj-wS8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1676.8115942028987" y="132.88043478260872"/>
+        </scene>
+        <!--RegisterVC-->
+        <scene sceneID="riZ-zr-yhr">
+            <objects>
+                <viewController id="jjM-1X-NNa" customClass="RegisterVC" customModule="TrippelRow_Online" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ycT-p1-9Ff">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="rp5-QN-u3i"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bdp-7L-zJx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="109" y="831"/>
         </scene>
         <!--MenuVC-->
         <scene sceneID="45k-cE-yxn">
@@ -552,8 +567,8 @@
                     <connections>
                         <outlet property="closeView" destination="dx2-F0-AZj" id="eh0-00-7Ld"/>
                         <outlet property="tableView" destination="m3t-sq-dZc" id="1qF-YL-7FQ"/>
-                        <segue destination="XJh-sR-ESF" kind="unwind" identifier="menuUnwind" customClass="MenuUnwindSegue" customModule="TrippelRow_Online" customModuleProvider="target" unwindAction="unwindSegueWithUnwindSegue:" id="t2x-m7-NYi"/>
                         <segue destination="4pb-Ak-RX6" kind="custom" identifier="toFriendsVC" customClass="SlideSegue" customModule="TrippelRow_Online" customModuleProvider="target" id="Gqg-bF-n5s"/>
+                        <segue destination="XJh-sR-ESF" kind="unwind" identifier="unwindFromMenuVC" customClass="MenuUnwindSegue" customModule="TrippelRow_Online" customModuleProvider="target" unwindAction="unwindToMainVCWithSegue:" id="hY9-Rg-XDo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vdw-BB-qzN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -612,9 +627,9 @@
                                     <constraint firstAttribute="height" constant="60" id="lzG-qb-Z9E"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bqM-t5-ahy">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bqM-t5-ahy">
                                 <rect key="frame" x="0.0" y="60" width="414" height="676"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
@@ -668,7 +683,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.18428918719291687" green="0.1843278706073761" blue="0.18428674340248108" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Y1m-E7-raR" firstAttribute="leading" secondItem="s7f-A8-0I0" secondAttribute="leading" id="0HG-ac-orE"/>
                             <constraint firstItem="yRd-OU-d9b" firstAttribute="trailing" secondItem="Y1m-E7-raR" secondAttribute="trailing" id="5eV-gh-5VG"/>
@@ -682,8 +697,8 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="bqM-t5-ahy" id="k9K-VD-9Au"/>
-                        <segue destination="HSh-ym-aaT" kind="unwind" identifier="unwindFromFriendsVC" customClass="UnwindSlideSegue" customModule="TrippelRow_Online" customModuleProvider="target" unwindAction="unwindToMenuWithSegue:" id="xKb-Hf-DNf"/>
                         <segue destination="287-FE-dVT" kind="custom" identifier="toAddFriendVC" customClass="SlideSegue" customModule="TrippelRow_Online" customModuleProvider="target" id="VWf-rt-oYU"/>
+                        <segue destination="HSh-ym-aaT" kind="unwind" identifier="unwindFromFriendsVC" customClass="UnwindSlideSegue" customModule="TrippelRow_Online" customModuleProvider="target" unwindAction="unwindToMenuVCWithSegue:" id="M87-Bj-jv6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tzw-Nf-vul" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -718,6 +733,7 @@
                                         <state key="normal" image="BackBtn"/>
                                         <connections>
                                             <action selector="backPressed:" destination="4pb-Ak-RX6" eventType="touchUpInside" id="L8Q-bh-gN6"/>
+                                            <action selector="backPressed:" destination="287-FE-dVT" eventType="touchUpInside" id="Snl-CN-wcO"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -736,22 +752,87 @@
                                 <color key="barTintColor" red="0.93902403116226196" green="0.32387137413024902" blue="0.3127216100692749" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dzs-4x-4oE">
+                                <rect key="frame" x="0.0" y="116" width="414" height="620"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="59" id="2wr-gl-RMC" customClass="FriendCell" customModule="TrippelRow_Online" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="59"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2wr-gl-RMC" id="p7X-ch-OhR">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="58.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lb0-AK-9M3">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="59"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gustav Wadström" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdD-XT-Gv1">
+                                                            <rect key="frame" x="121" y="15" width="172" height="29"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="29" id="TML-2u-KYT"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="21"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addFriend" translatesAutoresizingMaskIntoConstraints="NO" id="aDt-Qj-LWW">
+                                                            <rect key="frame" x="20" y="14" width="30" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="30" id="QfK-Dw-KfC"/>
+                                                                <constraint firstAttribute="height" constant="30" id="sgd-QN-3Wj"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.18428918720000001" green="0.1843278706" blue="0.18428674340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="aDt-Qj-LWW" firstAttribute="leading" secondItem="lb0-AK-9M3" secondAttribute="leading" constant="20" id="E4v-nx-mB8"/>
+                                                        <constraint firstItem="aDt-Qj-LWW" firstAttribute="centerY" secondItem="lb0-AK-9M3" secondAttribute="centerY" id="KFA-Mp-hT7"/>
+                                                        <constraint firstItem="YdD-XT-Gv1" firstAttribute="centerY" secondItem="lb0-AK-9M3" secondAttribute="centerY" id="c8r-Kv-jLS"/>
+                                                        <constraint firstItem="YdD-XT-Gv1" firstAttribute="centerX" secondItem="lb0-AK-9M3" secondAttribute="centerX" id="ja6-40-aqS"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="lb0-AK-9M3" firstAttribute="top" secondItem="p7X-ch-OhR" secondAttribute="top" id="0jW-S3-PmD"/>
+                                                <constraint firstAttribute="bottom" secondItem="lb0-AK-9M3" secondAttribute="bottom" id="j2g-1S-Qzh"/>
+                                                <constraint firstAttribute="trailing" secondItem="lb0-AK-9M3" secondAttribute="trailing" id="q7p-4H-kkJ"/>
+                                                <constraint firstItem="lb0-AK-9M3" firstAttribute="leading" secondItem="p7X-ch-OhR" secondAttribute="leading" id="y0c-UD-mlQ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="displayNameLbl" destination="YdD-XT-Gv1" id="Gud-wu-IQD"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.18428918719291687" green="0.1843278706073761" blue="0.18428674340248108" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="dzs-4x-4oE" firstAttribute="trailing" secondItem="tlg-TK-xN6" secondAttribute="trailing" id="24b-N7-aHn"/>
                             <constraint firstItem="2aE-Y3-d8t" firstAttribute="trailing" secondItem="tlg-TK-xN6" secondAttribute="trailing" id="8DI-D8-MQ5"/>
                             <constraint firstItem="lRN-3I-8Ka" firstAttribute="leading" secondItem="tlg-TK-xN6" secondAttribute="leading" id="IHL-jQ-N6m"/>
+                            <constraint firstItem="dzs-4x-4oE" firstAttribute="leading" secondItem="tlg-TK-xN6" secondAttribute="leading" id="N1N-eJ-Fkq"/>
+                            <constraint firstItem="dzs-4x-4oE" firstAttribute="top" secondItem="2aE-Y3-d8t" secondAttribute="bottom" id="QFd-yg-VDB"/>
                             <constraint firstItem="2aE-Y3-d8t" firstAttribute="leading" secondItem="tlg-TK-xN6" secondAttribute="leading" id="UMe-bx-nfP"/>
                             <constraint firstItem="2aE-Y3-d8t" firstAttribute="top" secondItem="lRN-3I-8Ka" secondAttribute="bottom" id="bVG-4m-wd9"/>
                             <constraint firstItem="lRN-3I-8Ka" firstAttribute="trailing" secondItem="tlg-TK-xN6" secondAttribute="trailing" id="eNq-4x-oPS"/>
                             <constraint firstItem="lRN-3I-8Ka" firstAttribute="top" secondItem="8Hk-N6-VuU" secondAttribute="top" id="f6F-kO-3Sh"/>
+                            <constraint firstItem="dzs-4x-4oE" firstAttribute="bottom" secondItem="tlg-TK-xN6" secondAttribute="bottom" id="zNv-LL-3kl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tlg-TK-xN6"/>
                     </view>
+                    <connections>
+                        <outlet property="searchBar" destination="2aE-Y3-d8t" id="pXV-3X-tqB"/>
+                        <outlet property="tableView" destination="dzs-4x-4oE" id="wgi-0W-kql"/>
+                        <segue destination="YTk-WY-mkP" kind="unwind" identifier="unwindFromAddFriendVC" customClass="UnwindSlideSegue" customModule="TrippelRow_Online" customModuleProvider="target" unwindAction="unwindToFriendsVCWithSegue:" id="GgK-4F-ppp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZfF-fv-Zpe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="YTk-WY-mkP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2462" y="893"/>
+            <point key="canvasLocation" x="2460.8695652173915" y="892.66304347826099"/>
         </scene>
     </scenes>
     <resources>

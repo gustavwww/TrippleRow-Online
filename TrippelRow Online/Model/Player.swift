@@ -18,6 +18,7 @@ import FBSDKLoginKit
     @objc optional func player(signedIn player: Player)
     @objc optional func player(created player: Player)
     @objc optional func errorOccured(error: Error)
+    @objc optional func friendRequestSent(to: String)
     
 }
 
@@ -191,10 +192,32 @@ class Player: NSObject {
                     }
                     
                 }
-                
+                completed()
             }
             
         }
+        
+    }
+    
+    func sendFriendRequest(to userID: String) {
+        
+        if firUser == nil {
+            return
+        }
+        
+        dbRef.child("users").child(userID).child("friendRequests").observeSingleEvent(of: .value) { (snapshot) in
+            
+            if let friendRequests = snapshot.value as? Array<String> {
+                
+                var requests = friendRequests
+                
+                self.dbRef.child("users").child(userID).child("friendRequests").setValue(requests.append((self.firUser?.uid)!))
+                print("Friend request has been sent!")
+                self.delegate?.friendRequestSent!(to: userID)
+            }
+            
+        }
+        
         
     }
     

@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PlayerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var closeView: UIView!
@@ -20,6 +20,8 @@ class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        player.delegate = self
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -35,7 +37,7 @@ class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func tapGesturePressed() {
-        performSegue(withIdentifier: "menuUnwind", sender: nil)
+        performSegue(withIdentifier: "unwindFromMenuVC", sender: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -90,6 +92,10 @@ class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         player.signOut()
         
+        if let logVC = presentingViewController?.presentingViewController as? LogVC {
+            logVC.player.delegate = logVC
+        }
+        
         dismiss(animated: true, completion: nil)
         presentingViewController?.dismiss(animated: true, completion: nil)
         
@@ -97,10 +103,10 @@ class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBAction func backPressed(_ sender: UIButton) {
         print("Button pressed")
-        performSegue(withIdentifier: "menuUnwind", sender: nil)
+        performSegue(withIdentifier: "unwindFromMenuVC", sender: nil)
     }
     
-    @IBAction func unwindToMenu(segue: UIStoryboardSegue) {}
+    @IBAction func unwindToMenuVC(segue: UIStoryboardSegue) {player.delegate = self}
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

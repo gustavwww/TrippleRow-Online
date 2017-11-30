@@ -10,14 +10,14 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-class MainVC: UIViewController {
+class MainVC: UIViewController, PlayerDelegate {
     
     var player: Player!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Implement player delegate?
+        player.delegate = self
         
         player.singleObserve {}
         
@@ -31,23 +31,24 @@ class MainVC: UIViewController {
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if let dest = segue.destination as? MenuVC {
-            dest.player = self.player
-        }
-        
-    }
-    
     @IBAction func newGamePressed(_ sender: UIButton) {
         
         performSegue(withIdentifier: "toNewGameVC", sender: nil)
         
     }
     
-    @IBAction func slideUnwindSegue(unwindSegue: UnwindSlideSegue) {}
+    @IBAction func unwindToMainVC(segue: UIStoryboardSegue) {player.delegate = self}
     
-    @IBAction func unwindSegue(unwindSegue: MenuUnwindSegue) {}
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let dest = segue.destination as? MenuVC {
+            dest.player = self.player
+        }
+        
+        if let dest = segue.destination as? NewGameVC {
+            dest.player = self.player
+        }
+        
+    }
     
 }

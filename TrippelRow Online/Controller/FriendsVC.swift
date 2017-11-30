@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PlayerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -63,6 +63,8 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         performSegue(withIdentifier: "toAddFriendVC", sender: nil)
         
     }
+    
+    @IBAction func unwindToFriendsVC(segue: UIStoryboardSegue) {player.delegate = self}
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

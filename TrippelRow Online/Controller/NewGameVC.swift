@@ -8,17 +8,28 @@
 
 import UIKit
 
-class NewGameVC: UIViewController {
+class NewGameVC: UIViewController, PlayerDelegate {
+    
+    var player: Player!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        player.delegate = self
         
     }
 
     @IBAction func backPressed(_ sender: UIButton) {
         
-        performSegue(withIdentifier: "newGameUnwind", sender: nil)
+        performSegue(withIdentifier: "unwindFromNewGameVC", sender: nil)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let dest = segue.destination as? MainVC {
+            dest.player = self.player
+        }
         
     }
     
