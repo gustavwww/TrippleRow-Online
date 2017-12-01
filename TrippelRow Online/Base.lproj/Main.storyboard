@@ -47,6 +47,10 @@
                                     <constraint firstAttribute="height" constant="21" id="EZd-aq-REX"/>
                                 </constraints>
                             </view>
+                            <view alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Wm-2t-8yc" customClass="LoginView" customModule="TrippelRow_Online" customModuleProvider="target">
+                                <rect key="frame" x="20" y="251.33333333333334" width="374" height="261.66666666666663"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logga" translatesAutoresizingMaskIntoConstraints="NO" id="pBB-Ed-3PN">
                                 <rect key="frame" x="40" y="29" width="335" height="97"/>
                                 <constraints>
@@ -59,7 +63,7 @@
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1ZC-23-2pW" customClass="LoginTextFields" customModule="TrippelRow_Online" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="334" height="40"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.4025577910958904" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Inj-WQ-OnQ"/>
                                         </constraints>
@@ -72,7 +76,7 @@
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lösenord" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BY6-hv-ENB" customClass="LoginTextFields" customModule="TrippelRow_Online" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="40"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.3946917808219178" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="ghJ-JL-2iV"/>
                                                 </constraints>
@@ -83,7 +87,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inget konto? Skapa ett!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n7k-pQ-vzz">
                                                 <rect key="frame" x="0.0" y="50" width="334" height="20.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" white="1" alpha="0.63832405821917804" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                                 <size key="shadowOffset" width="1" height="1"/>
                                             </label>
@@ -94,7 +98,7 @@
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awh-03-A2K" customClass="LogScreenButtons" customModule="TrippelRow_Online" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="132" height="35"/>
-                                                <color key="backgroundColor" red="0.93725490196078431" green="0.32549019607843138" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.93725490196078431" green="0.32549019607843138" blue="0.31372549019607843" alpha="0.9082566352739726" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="4HR-v9-wWk"/>
                                                     <constraint firstAttribute="width" constant="132" id="ZZg-ax-jL5"/>
@@ -109,7 +113,7 @@
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MER-Es-sWZ" customClass="LogScreenButtons" customModule="TrippelRow_Online" customModuleProvider="target">
                                                 <rect key="frame" x="149.66666666666666" y="0.0" width="131.99999999999997" height="35"/>
-                                                <color key="backgroundColor" red="0.93725490196078431" green="0.32549019607843138" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.93725490196078431" green="0.32549019607843138" blue="0.31372549019607843" alpha="0.91307255993150682" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="132" id="4yg-pu-5TJ"/>
                                                     <constraint firstAttribute="height" constant="35" id="orY-W3-wpO"/>
@@ -169,10 +173,14 @@
                             <constraint firstItem="pBB-Ed-3PN" firstAttribute="top" secondItem="H5X-Hg-wZN" secondAttribute="bottom" constant="8" id="KXE-9t-hmS"/>
                             <constraint firstItem="ajD-he-Apb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="KwL-e5-2PT"/>
                             <constraint firstItem="G5v-tU-bdw" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="L5s-Pf-fve"/>
+                            <constraint firstItem="8Wm-2t-8yc" firstAttribute="centerY" secondItem="ajD-he-Apb" secondAttribute="centerY" id="N8G-Ln-BvW"/>
                             <constraint firstItem="G5v-tU-bdw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="O0i-UQ-TbM"/>
+                            <constraint firstItem="8Wm-2t-8yc" firstAttribute="centerX" secondItem="ajD-he-Apb" secondAttribute="centerX" id="OH5-mu-CQJ"/>
                             <constraint firstAttribute="trailing" secondItem="H5X-Hg-wZN" secondAttribute="trailing" id="OPi-7c-Oko"/>
                             <constraint firstItem="ajD-he-Apb" firstAttribute="top" secondItem="gEi-Nv-cuu" secondAttribute="bottom" constant="52" id="e3H-aC-Ts9"/>
+                            <constraint firstItem="8Wm-2t-8yc" firstAttribute="width" secondItem="ajD-he-Apb" secondAttribute="width" constant="40" id="fyH-Ct-Sgn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gEi-Nv-cuu" secondAttribute="trailing" constant="40" id="g9e-GP-OTh"/>
+                            <constraint firstItem="8Wm-2t-8yc" firstAttribute="height" secondItem="ajD-he-Apb" secondAttribute="height" constant="40" id="j7T-HP-qqZ"/>
                             <constraint firstItem="gEi-Nv-cuu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="mng-Uz-Ffe"/>
                             <constraint firstItem="OiH-7A-dCA" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="nM0-8s-OF1"/>
                             <constraint firstItem="H5X-Hg-wZN" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="oyV-me-uSZ"/>
@@ -454,24 +462,136 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="Gg9-XK-NEq">
+                                <rect key="frame" x="40" y="275" width="334" height="187"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="CDq-e1-Vq1">
+                                        <rect key="frame" x="0.0" y="0.0" width="334" height="83"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Användarnamn" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jSm-Hg-XkM" customClass="RegisterTextFields" customModule="TrippelRow_Online" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="334" height="35"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.3946917808219178" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="cTg-yl-ZbD"/>
+                                                </constraints>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="username"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Yp-rX-4sK" customClass="RegisterTextFields" customModule="TrippelRow_Online" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="48" width="334" height="35"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.3946917808219178" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="xi8-Oo-urh"/>
+                                                </constraints>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="email"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="0en-J3-Rzo">
+                                        <rect key="frame" x="0.0" y="104" width="334" height="83"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Lösenord" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ga4-pD-5Mt" customClass="RegisterTextFields" customModule="TrippelRow_Online" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="334" height="35"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.39025042808219179" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="23Q-Ls-LH7"/>
+                                                </constraints>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" textContentType="password"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Verifiera Lösenord" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Jb-SA-myy" customClass="RegisterTextFields" customModule="TrippelRow_Online" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="48" width="334" height="35"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.39025042808219179" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="H4j-cE-ByR"/>
+                                                </constraints>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" textContentType="password"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logga" translatesAutoresizingMaskIntoConstraints="NO" id="rKo-N0-hsO">
+                                <rect key="frame" x="40" y="11" width="335" height="97"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="97" id="IA6-Ne-8ug"/>
+                                    <constraint firstAttribute="width" constant="335" id="xNQ-CL-bPe"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Online-Logga" translatesAutoresizingMaskIntoConstraints="NO" id="7Xp-h5-oin">
+                                <rect key="frame" x="145" y="116" width="125" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="125" id="ghV-lO-nS5"/>
+                                    <constraint firstAttribute="height" constant="44" id="kI9-TR-SsU"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aldrig spelat Tripple Row förut? Skapa att konto för att komma igång med att utmana dina vänner i en tre-i-rad kamp!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SQ0-RT-zho">
+                                <rect key="frame" x="74.666666666666686" y="180" width="265" height="97"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="265" id="Cpy-D7-b6J"/>
+                                    <constraint firstAttribute="height" constant="97" id="wUu-MP-tAC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="0.83005136986301375" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rok-e0-jLf">
+                                <rect key="frame" x="124" y="494" width="167" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="167" id="0IZ-TU-DXi"/>
+                                    <constraint firstAttribute="height" constant="49" id="XyA-hg-9Tv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="27"/>
+                                <state key="normal" title="Skapa Konto">
+                                    <color key="titleColor" red="0.9390240312" green="0.3238713741" blue="0.31272161009999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="createAccountPressed:" destination="jjM-1X-NNa" eventType="touchUpInside" id="BP4-ju-Xgs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="SQ0-RT-zho" firstAttribute="centerX" secondItem="ycT-p1-9Ff" secondAttribute="centerX" id="16X-g5-obd"/>
                             <constraint firstItem="svL-oa-KKj" firstAttribute="leading" secondItem="rp5-QN-u3i" secondAttribute="leading" id="4oo-my-B7E"/>
+                            <constraint firstItem="Gg9-XK-NEq" firstAttribute="leading" secondItem="rp5-QN-u3i" secondAttribute="leading" constant="40" id="7ZG-3h-pj4"/>
                             <constraint firstItem="wU3-8g-ys8" firstAttribute="top" secondItem="ycT-p1-9Ff" secondAttribute="top" id="BO1-hn-xSc"/>
+                            <constraint firstItem="rok-e0-jLf" firstAttribute="top" secondItem="Gg9-XK-NEq" secondAttribute="bottom" constant="32" id="FNf-fn-ZJD"/>
+                            <constraint firstItem="rKo-N0-hsO" firstAttribute="centerX" secondItem="ycT-p1-9Ff" secondAttribute="centerX" id="HRN-l3-Nh9"/>
+                            <constraint firstItem="rok-e0-jLf" firstAttribute="centerX" secondItem="ycT-p1-9Ff" secondAttribute="centerX" id="HpX-ZR-yS1"/>
+                            <constraint firstItem="rKo-N0-hsO" firstAttribute="top" secondItem="ycT-p1-9Ff" secondAttribute="top" constant="11" id="JFi-Km-Ojk"/>
                             <constraint firstItem="svL-oa-KKj" firstAttribute="bottom" secondItem="rp5-QN-u3i" secondAttribute="bottom" id="JSg-AS-aG7"/>
+                            <constraint firstItem="rp5-QN-u3i" firstAttribute="trailing" secondItem="Gg9-XK-NEq" secondAttribute="trailing" constant="40" id="Kqh-r1-M0A"/>
+                            <constraint firstItem="7Xp-h5-oin" firstAttribute="top" secondItem="rKo-N0-hsO" secondAttribute="bottom" constant="8" id="Q43-6o-fSG"/>
+                            <constraint firstItem="Gg9-XK-NEq" firstAttribute="centerX" secondItem="ycT-p1-9Ff" secondAttribute="centerX" id="Qlv-Xm-AWv"/>
                             <constraint firstItem="wU3-8g-ys8" firstAttribute="leading" secondItem="rp5-QN-u3i" secondAttribute="leading" id="Svx-4c-phz"/>
                             <constraint firstItem="wU3-8g-ys8" firstAttribute="trailing" secondItem="rp5-QN-u3i" secondAttribute="trailing" id="VRg-xY-arf"/>
+                            <constraint firstItem="Gg9-XK-NEq" firstAttribute="centerY" secondItem="ycT-p1-9Ff" secondAttribute="centerY" id="ZS8-jy-dUO"/>
                             <constraint firstItem="wU3-8g-ys8" firstAttribute="bottom" secondItem="rp5-QN-u3i" secondAttribute="bottom" id="akX-Od-CFX"/>
+                            <constraint firstItem="7Xp-h5-oin" firstAttribute="centerX" secondItem="ycT-p1-9Ff" secondAttribute="centerX" id="khh-6v-eI1"/>
+                            <constraint firstItem="SQ0-RT-zho" firstAttribute="top" secondItem="7Xp-h5-oin" secondAttribute="bottom" constant="20" id="s88-Es-FaG"/>
                             <constraint firstItem="svL-oa-KKj" firstAttribute="trailing" secondItem="rp5-QN-u3i" secondAttribute="trailing" id="vxN-Lm-uiC"/>
                             <constraint firstItem="svL-oa-KKj" firstAttribute="top" secondItem="ycT-p1-9Ff" secondAttribute="top" id="ykf-O0-prY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rp5-QN-u3i"/>
                     </view>
+                    <connections>
+                        <outlet property="emailField" destination="7Yp-rX-4sK" id="TRw-5s-FaN"/>
+                        <outlet property="passField" destination="ga4-pD-5Mt" id="4wz-6i-LkY"/>
+                        <outlet property="passVerificationField" destination="8Jb-SA-myy" id="xUz-Dc-Tgs"/>
+                        <outlet property="usernameField" destination="jSm-Hg-XkM" id="thJ-jG-hGG"/>
+                        <segue destination="qAq-ED-soY" kind="custom" identifier="toMainVCFromRegisterVC" customClass="SlideSegue" customModule="TrippelRow_Online" customModuleProvider="target" id="9eC-a6-GFJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bdp-7L-zJx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="108.69565217391305" y="875.54347826086962"/>
+            <point key="canvasLocation" x="108.69565217391305" y="892.66304347826099"/>
         </scene>
         <!--MenuVC-->
         <scene sceneID="45k-cE-yxn">
@@ -613,8 +733,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y1m-E7-raR" customClass="HeaderView" customModule="TrippelRow_Online" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mina Vänner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dio-bQ-Rbn">
-                                        <rect key="frame" x="149" y="16.333333333333336" width="116.33333333333331" height="27.333333333333336"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vänner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dio-bQ-Rbn">
+                                        <rect key="frame" x="174.66666666666666" y="16.333333333333336" width="65.333333333333343" height="27.333333333333336"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -882,4 +1002,7 @@
         <image name="newGameBtn" width="20" height="20"/>
         <image name="next" width="9" height="15"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="9eC-a6-GFJ"/>
+    </inferredMetricsTieBreakers>
 </document>

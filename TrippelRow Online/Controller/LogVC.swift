@@ -73,9 +73,7 @@ class LogVC: UIViewController, UITextFieldDelegate, PlayerDelegate {
     }
     
     @IBAction func registerPressed(_ sender: LogScreenButtons) { //Move to another ViewController
-        
-        
-        
+        performSegue(withIdentifier: "toRegisterVC", sender: nil)
     }
     
     @IBAction func facebookLoginPressed(_ sender: LogScreenButtons) {
@@ -111,6 +109,10 @@ class LogVC: UIViewController, UITextFieldDelegate, PlayerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let dest = segue.destination as? MainVC {
+            dest.player = self.player
+        }
+        
+        if let dest = segue.destination as? RegisterVC {
             dest.player = self.player
         }
         

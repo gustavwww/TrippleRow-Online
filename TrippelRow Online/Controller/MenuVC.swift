@@ -98,10 +98,23 @@ class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Play
             logVC.player.delegate = logVC
         }
         
+        if let mainVC = presentingViewController as? MainVC {
+            print("Found mainVC")
+            if mainVC.isFirstTimeOnline {
+                presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil) // Try unwind from here.
+                print("registerVC should have dissmissed")
+                if let logVC = presentingViewController?.presentingViewController?.presentingViewController as? LogVC {
+                    logVC.player.delegate = logVC
+                    print("Found logVC (Should have)")
+                }
+            }
+        }
+        
         dismiss(animated: true, completion: nil)
         presentingViewController?.dismiss(animated: true, completion: nil)
         
     }
+    
     
     @IBAction func backPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "unwindFromMenuVC", sender: nil)

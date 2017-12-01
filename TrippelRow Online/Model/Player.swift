@@ -99,7 +99,7 @@ class Player {
         
     }
     
-    //Used for new and old facebook account
+    //Used for new and old facebook accounts
     func signInUser(credential: AuthCredential) { //Setting displayName
         
         Auth.auth().signIn(with: credential) { (user, error) in
@@ -118,13 +118,14 @@ class Player {
         
     }
     
-    //Used for new account
+    //Used for new accounts
     func createUser(email: String, password: String, displayName: String) { //Setting displayName
         
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             
             if error != nil {
-                self.delegate?.errorOccured(error: StringError(ErrorType.CreateUserError))
+                self.delegate?.errorOccured(error: error!)
+                return
             }
             
             self.firUser = user

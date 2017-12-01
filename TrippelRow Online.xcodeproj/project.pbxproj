@@ -27,10 +27,13 @@
 		977DE3731FC7386B00971329 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977DE3721FC7386B00971329 /* HeaderView.swift */; };
 		977DE3761FC738AC00971329 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977DE3751FC738AC00971329 /* Shadow.swift */; };
 		97944F681FD0679E00EBC42A /* StringError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97944F671FD0679E00EBC42A /* StringError.swift */; };
+		979D2DAE1FD1A980003561B6 /* RegisterTextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979D2DAD1FD1A980003561B6 /* RegisterTextFields.swift */; };
+		979D2DB11FD1B203003561B6 /* RegistrationManeger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979D2DB01FD1B203003561B6 /* RegistrationManeger.swift */; };
 		97A8B4391FC4AF9D00254183 /* LoginTextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8B4381FC4AF9D00254183 /* LoginTextFields.swift */; };
 		97A8B43C1FC4BC1F00254183 /* LogScreenButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8B43B1FC4BC1F00254183 /* LogScreenButtons.swift */; };
 		97E253271FC73DD6004415D8 /* LogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977DE38A1FC73C2A00971329 /* LogVC.swift */; };
 		97E253281FC73DD6004415D8 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977DE3891FC73C2A00971329 /* MainVC.swift */; };
+		97E2FFFB1FD1A10300673E45 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E2FFFA1FD1A10300673E45 /* LoginView.swift */; };
 		97EF648F1FCDD6F3002197EB /* LoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EF648E1FCDD6F3002197EB /* LoadView.swift */; };
 		97EF64911FCDD88B002197EB /* ViewControllerLoadExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EF64901FCDD88B002197EB /* ViewControllerLoadExtension.swift */; };
 		97EF64931FCE10A3002197EB /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EF64921FCE10A3002197EB /* FriendCell.swift */; };
@@ -63,8 +66,11 @@
 		977DE3891FC73C2A00971329 /* MainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		977DE38A1FC73C2A00971329 /* LogVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogVC.swift; sourceTree = "<group>"; };
 		97944F671FD0679E00EBC42A /* StringError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringError.swift; sourceTree = "<group>"; };
+		979D2DAD1FD1A980003561B6 /* RegisterTextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTextFields.swift; sourceTree = "<group>"; };
+		979D2DB01FD1B203003561B6 /* RegistrationManeger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationManeger.swift; sourceTree = "<group>"; };
 		97A8B4381FC4AF9D00254183 /* LoginTextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextFields.swift; sourceTree = "<group>"; };
 		97A8B43B1FC4BC1F00254183 /* LogScreenButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogScreenButtons.swift; sourceTree = "<group>"; };
+		97E2FFFA1FD1A10300673E45 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		97EF648E1FCDD6F3002197EB /* LoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadView.swift; sourceTree = "<group>"; };
 		97EF64901FCDD88B002197EB /* ViewControllerLoadExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerLoadExtension.swift; sourceTree = "<group>"; };
 		97EF64921FCE10A3002197EB /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
@@ -122,6 +128,7 @@
 		9753E1351FC324D80057540F /* TrippelRow Online */ = {
 			isa = PBXGroup;
 			children = (
+				979D2DAF1FD1B013003561B6 /* Utilities */,
 				976B6E9B1FC775450050B1BF /* Extensions */,
 				977DE3741FC7389C00971329 /* Protocol */,
 				977560841FC32BD60089B394 /* Model */,
@@ -150,12 +157,12 @@
 			isa = PBXGroup;
 			children = (
 				977DE38A1FC73C2A00971329 /* LogVC.swift */,
+				97532F3F1FCF866700EF8E78 /* RegisterVC.swift */,
 				977DE3891FC73C2A00971329 /* MainVC.swift */,
 				9731E59B1FCC8D87007E2A4E /* NewGameVC.swift */,
 				976B6E951FC7642F0050B1BF /* MenuVC.swift */,
 				9731E59F1FCC9955007E2A4E /* FriendsVC.swift */,
 				9757361B1FCD915500728143 /* AddFriendVC.swift */,
-				97532F3F1FCF866700EF8E78 /* RegisterVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -164,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				97A8B4381FC4AF9D00254183 /* LoginTextFields.swift */,
+				979D2DAD1FD1A980003561B6 /* RegisterTextFields.swift */,
 				97A8B43B1FC4BC1F00254183 /* LogScreenButtons.swift */,
 				977DE3721FC7386B00971329 /* HeaderView.swift */,
 				976B6E971FC7659E0050B1BF /* MenuCell.swift */,
@@ -172,6 +180,7 @@
 				9731E5A31FCC9B49007E2A4E /* UnwindSlideSegue.swift */,
 				97EF648E1FCDD6F3002197EB /* LoadView.swift */,
 				97EF64921FCE10A3002197EB /* FriendCell.swift */,
+				97E2FFFA1FD1A10300673E45 /* LoginView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -181,7 +190,6 @@
 			children = (
 				97085E4B1FC60C0F00F5B0B1 /* Player.swift */,
 				97EF64941FCE11D0002197EB /* DBUser.swift */,
-				97944F671FD0679E00EBC42A /* StringError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -192,6 +200,15 @@
 				977DE3751FC738AC00971329 /* Shadow.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		979D2DAF1FD1B013003561B6 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				97944F671FD0679E00EBC42A /* StringError.swift */,
+				979D2DB01FD1B203003561B6 /* RegistrationManeger.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,6 +363,9 @@
 				977DE3761FC738AC00971329 /* Shadow.swift in Sources */,
 				9753E1371FC324D80057540F /* AppDelegate.swift in Sources */,
 				9731E5A21FCC9A21007E2A4E /* SlideSegue.swift in Sources */,
+				97E2FFFB1FD1A10300673E45 /* LoginView.swift in Sources */,
+				979D2DAE1FD1A980003561B6 /* RegisterTextFields.swift in Sources */,
+				979D2DB11FD1B203003561B6 /* RegistrationManeger.swift in Sources */,
 				976B6E961FC7642F0050B1BF /* MenuVC.swift in Sources */,
 				97EF64931FCE10A3002197EB /* FriendCell.swift in Sources */,
 				976B23331FC8A21E00ED8A00 /* MenuUnwindSegue.swift in Sources */,

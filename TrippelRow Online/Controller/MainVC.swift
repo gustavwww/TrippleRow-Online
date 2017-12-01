@@ -13,16 +13,26 @@ import FirebaseDatabase
 class MainVC: UIViewController, PlayerDelegate {
     
     var player: Player!
+    var isFirstTimeOnline: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         player.delegate = self
         
+        if isFirstTimeOnline {
+            firstTimeManagement()
+        }
+        
         player.singleObserve {}
         
     }
     
+    func firstTimeManagement() {
+        
+        
+        
+    }
     
     
     @IBAction func menuBtnPressed(_ sender: UIButton) {

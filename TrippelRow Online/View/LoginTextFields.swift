@@ -20,7 +20,7 @@ class LoginTextFields: UITextField, Shadow {
         attributedPlaceholder = NSAttributedString(string: self.placeholder!, attributes: [NSAttributedStringKey.font : font!, NSAttributedStringKey.foregroundColor : color])
         
         layer.cornerRadius = bounds.height / 2
-        layer.borderColor = UIColor.white.cgColor
+        layer.borderColor = UIColor(red: 0.94, green: 0.33, blue: 0.31, alpha: 0.91).cgColor
         layer.borderWidth = 1
         
     }

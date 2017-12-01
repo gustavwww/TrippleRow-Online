@@ -39,7 +39,7 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         showActivityIndicator()
         player.singleObserve {
             
-            for i in self.player.friends {
+            for i in self.player.friends { //Get a better solution here
                 
                 self.users = self.player.allUsers.filter { $0.displayName != self.player.firUser?.displayName && $0.displayName != i.displayName }
                 
