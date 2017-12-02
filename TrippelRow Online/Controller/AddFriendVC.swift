@@ -25,8 +25,6 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        closeKeyboardFunction()
-        
         searchBar.delegate = self
         
         tableView.delegate = self
@@ -39,7 +37,7 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         showActivityIndicator()
         player.singleObserve {
             
-            for i in self.player.friends { //Get a better solution here
+            for i in self.player.friends { //Get a better solution here?
                 
                 self.users = self.player.allUsers.filter { $0.displayName != self.player.firUser?.displayName && $0.displayName != i.displayName }
                 
@@ -76,8 +74,16 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         tableView.reloadData()
     }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        inSearchMode = false
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -114,7 +120,7 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
             user = users[indexPath.row]
         }
         
-        let alertController = UIAlertController(title: "Lägg till ny vän", message: "Är du säker på att du vill skicka en vänförfråga till \(String(describing: user.displayName))?", preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "Lägg till ny vän", message: "Är du säker på att du vill skicka en vänförfråga till \(user.displayName!)?", preferredStyle: .actionSheet)
         
         alertController.addAction(UIAlertAction(title: "Skicka", style: .default, handler: { (action) in
             
@@ -133,6 +139,10 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         self.removeActivityIndicator()
         
+        let alertController = UIAlertController(title: "Vänförfrågan Skickad!", message: "Din vänförfrågan till \(to) har skickats", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func backPressed(_ sender: UIButton) {

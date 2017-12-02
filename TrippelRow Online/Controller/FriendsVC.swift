@@ -37,12 +37,18 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
             
             self.tableView.isHidden = false
             self.noFriendsLbl.isHidden = true
+            
+            self.tableView.reloadData()
         }
         
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

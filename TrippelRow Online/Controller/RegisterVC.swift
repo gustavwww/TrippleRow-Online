@@ -71,6 +71,17 @@ class RegisterVC: UIViewController, UITextFieldDelegate, PlayerDelegate {
         
     }
     
+    
+    @IBAction func backPressed(_ sender: UIButton) {
+        
+        if let logVC = presentingViewController as? LogVC {
+            logVC.player.delegate = logVC
+            
+            dismiss(animated: true, completion: nil)
+        }
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let dest = segue.destination as? MainVC {

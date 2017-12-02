@@ -26,14 +26,17 @@ class MainVC: UIViewController, PlayerDelegate {
         
         player.singleObserve {}
         
-    }
-    
-    func firstTimeManagement() {
-        
-        
+        player.startObserve()
         
     }
     
+    func firstTimeManagement() {} //Might do something here
+    
+    func gotFriendRequest(from: [DBUser]) {
+        
+
+        
+    }
     
     @IBAction func menuBtnPressed(_ sender: UIButton) {
         

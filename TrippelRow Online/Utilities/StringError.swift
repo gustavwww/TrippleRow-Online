@@ -16,6 +16,7 @@ enum ErrorType: String {
     case SignOutError = "Ett fel inträffade vid utloggning, försök igen senare."
     case SendFriendRequestError = "Ett fel inträffade när vänförfrågan skulle skickas."
     case SingleObserveError = "Kunde inte hämta data från databasen, försök igen senare."
+    case FriendRequestAlreadySent = "Spelaren inväntar din vänförfrågan."
     
     //Registration
     case CreateUserError = "Ett fel inträffade vid registrering, försök igen senare."

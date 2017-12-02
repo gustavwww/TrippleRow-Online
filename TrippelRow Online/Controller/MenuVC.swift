@@ -95,23 +95,24 @@ class MenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Play
         player.signOut()
         
         if let logVC = presentingViewController?.presentingViewController as? LogVC {
+            
+            dismiss(animated: true, completion: nil)
+            presentingViewController?.dismiss(animated: true, completion: nil)
+            
             logVC.player.delegate = logVC
+            
+            return
         }
         
-        if let mainVC = presentingViewController as? MainVC {
-            print("Found mainVC")
-            if mainVC.isFirstTimeOnline {
-                presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil) // Try unwind from here.
-                print("registerVC should have dissmissed")
-                if let logVC = presentingViewController?.presentingViewController?.presentingViewController as? LogVC {
-                    logVC.player.delegate = logVC
-                    print("Found logVC (Should have)")
-                }
-            }
+        if let registerVC = presentingViewController?.presentingViewController as? RegisterVC {
+            
+            dismiss(animated: true, completion: nil)
+            presentingViewController?.dismiss(animated: true, completion: nil)
+            
+            registerVC.player.delegate = registerVC
+            
+            return
         }
-        
-        dismiss(animated: true, completion: nil)
-        presentingViewController?.dismiss(animated: true, completion: nil)
         
     }
     
