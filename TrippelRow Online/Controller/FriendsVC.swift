@@ -24,23 +24,22 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
         
         tableView.isHidden = true
         
-        showActivityIndicator()
-        player.singleObserve {
-            self.friends = self.player.friends
-            self.removeActivityIndicator()
+        self.friends = self.player.friends
+        
+        if self.friends!.isEmpty {
             
-            if self.friends!.isEmpty {
-                self.tableView.isHidden = true
-                self.noFriendsLbl.isHidden = false
-                return
-            }
+            self.tableView.isHidden = true
+            self.noFriendsLbl.isHidden = false
+            
+            
+        } else {
             
             self.tableView.isHidden = false
             self.noFriendsLbl.isHidden = true
             
-            self.tableView.reloadData()
         }
         
+        self.tableView.reloadData()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

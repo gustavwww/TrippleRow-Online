@@ -24,8 +24,6 @@ class MainVC: UIViewController, PlayerDelegate {
             firstTimeManagement()
         }
         
-        player.singleObserve {}
-        
         player.startObserve()
         
     }

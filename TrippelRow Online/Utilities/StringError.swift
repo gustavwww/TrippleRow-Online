@@ -17,6 +17,7 @@ enum ErrorType: String {
     case SendFriendRequestError = "Ett fel inträffade när vänförfrågan skulle skickas."
     case SingleObserveError = "Kunde inte hämta data från databasen, försök igen senare."
     case FriendRequestAlreadySent = "Spelaren inväntar din vänförfrågan."
+    case AlreadyFriends = "Ni är redan vänner."
     
     //Registration
     case CreateUserError = "Ett fel inträffade vid registrering, försök igen senare."

@@ -16,6 +16,7 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     @IBOutlet weak var tableView: UITableView!
     
     var player: Player!
+    var userManager: UserManager!
     
     var users: [DBUser]!
     var filteredUsers: [DBUser]!
@@ -35,17 +36,31 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         users = [DBUser]()
         
         showActivityIndicator()
-        player.singleObserve {
+        
+        userManager = UserManager()
+        
+        userManager.fetchUsers { (error) in
             
-            for i in self.player.friends { //Get a better solution here?
+            if error != nil {
                 
-                self.users = self.player.allUsers.filter { $0.displayName != self.player.firUser?.displayName && $0.displayName != i.displayName }
+                self.errorOccured(error: error!)
+                
+                return
+            }
+            
+            self.users = self.userManager.allUsers!.filter { $0.displayName != self.player.firUser?.displayName }
+            
+            for i in self.player.friends {
+                
+                self.users = self.userManager.allUsers!.filter { $0.displayName != i.displayName }
                 
             }
             
             self.removeActivityIndicator()
             self.tableView.reloadData()
+            
         }
+        
         
     }
     
