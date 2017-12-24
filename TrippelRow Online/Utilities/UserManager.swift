@@ -22,7 +22,7 @@ class UserManager {
     }
     
     //Used for overall fetching
-    func fetchUsers(completed: @escaping (_ error: StringError?) -> Void) {
+    func fetchUsers(completed: @escaping (StringError?) -> Void) {
         
         dbRef.child("users").observeSingleEvent(of: .value) { (snapshot) in
             
@@ -51,9 +51,42 @@ class UserManager {
         
     }
     
-    func fetchUserDetails(for userID: String) {
+    //Used for specific user fetching
+    func fetchUserDetails(userID: String, completed: @escaping (DetailedUser, StringError?) -> Void) {
         
-        
+        dbRef.child("users").child(userID).observeSingleEvent(of: .value) { (snapshot) in
+            
+            if let dict = snapshot.value as? Dictionary<String, AnyObject> {
+                
+                let detailedUser = DetailedUser()
+                
+                detailedUser.userID = snapshot.key
+                
+                if let displayName = dict["displayName"] as? String {
+                    detailedUser.displayName = displayName
+                }
+                
+                if let email = dict["email"] as? String {
+                    detailedUser.email = email
+                }
+                
+                if let status = dict["status"] as? String {
+                    
+                    if status == "online" {
+                        detailedUser.status = .Online
+                    } else {
+                        detailedUser.status = .Offline
+                    }
+                    
+                }
+                
+                completed(detailedUser, nil)
+                
+            } else {
+                completed(DetailedUser(), StringError(ErrorType.FetchUserError))
+            }
+            
+        }
         
         
     }

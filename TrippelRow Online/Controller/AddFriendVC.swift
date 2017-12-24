@@ -48,11 +48,11 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
                 return
             }
             
-            self.users = self.userManager.allUsers!.filter { $0.displayName != self.player.firUser?.displayName }
+            self.users = self.userManager.allUsers!.filter { $0.displayName != self.player.firUser!.displayName }
             
             for i in self.player.friends {
                 
-                self.users = self.userManager.allUsers!.filter { $0.displayName != i.displayName }
+                self.users = self.users.filter { $0.displayName != i.displayName }
                 
             }
             

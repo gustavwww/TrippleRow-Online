@@ -18,6 +18,8 @@ enum ErrorType: String {
     case SingleObserveError = "Kunde inte hämta data från databasen, försök igen senare."
     case FriendRequestAlreadySent = "Spelaren inväntar din vänförfrågan."
     case AlreadyFriends = "Ni är redan vänner."
+    case FetchUserError = "Kunde inte hämta information om användare."
+    case CouldNotDownloadGame = "Ett fel inträffade när matchen skulle hämtas."
     
     //Registration
     case CreateUserError = "Ett fel inträffade vid registrering, försök igen senare."

@@ -13,27 +13,23 @@ import FirebaseDatabase
 class MainVC: UIViewController, PlayerDelegate {
     
     var player: Player!
-    var isFirstTimeOnline: Bool = false
+    
+    var gameIDs: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         player.delegate = self
         
-        if isFirstTimeOnline {
-            firstTimeManagement()
-        }
-        
         player.startObserve()
         
     }
     
-    func firstTimeManagement() {} //Might do something here
-    
-    func gotFriendRequest(from: [DBUser]) {
+    func playerObserverRan(player: Player) {
         
-
+        gameIDs = player.gameIDs
         
+        //tableView.reloadData
     }
     
     @IBAction func menuBtnPressed(_ sender: UIButton) {
@@ -57,6 +53,10 @@ class MainVC: UIViewController, PlayerDelegate {
         }
         
         if let dest = segue.destination as? NewGameVC {
+            dest.player = self.player
+        }
+        
+        if let dest = segue.destination as? GameVC {
             dest.player = self.player
         }
         

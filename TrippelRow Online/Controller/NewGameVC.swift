@@ -18,7 +18,13 @@ class NewGameVC: UIViewController, PlayerDelegate {
         player.delegate = self
         
     }
-
+    
+    @IBAction func playAgainstFriendPressed(_ sender: UIButton) {
+        
+        performSegue(withIdentifier: "toOpponentSelectionVC", sender: nil)
+        
+    }
+    
     @IBAction func backPressed(_ sender: UIButton) {
         
         performSegue(withIdentifier: "unwindFromNewGameVC", sender: nil)
@@ -28,6 +34,10 @@ class NewGameVC: UIViewController, PlayerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let dest = segue.destination as? MainVC {
+            dest.player = self.player
+        }
+        
+        if let dest = segue.destination as? OpponentSelectionVC {
             dest.player = self.player
         }
         

@@ -86,7 +86,6 @@ class RegisterVC: UIViewController, UITextFieldDelegate, PlayerDelegate {
         
         if let dest = segue.destination as? MainVC {
             dest.player = self.player
-            dest.isFirstTimeOnline = true
         }
         
     }

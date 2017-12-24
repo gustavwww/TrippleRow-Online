@@ -11,16 +11,20 @@ import UIKit
 
 class DetailedUser {
     
-    var userID: String
-    var displayName: String
-    var email: String
+    var userID: String = ""
+    var displayName: String = ""
+    var email: String = ""
+    var status: PlayerStatus = .Offline
     
-    init(userID: String, displayName: String, email: String) {
+    init(userID: String, displayName: String, email: String, status: PlayerStatus) {
         
         self.userID = userID
         self.displayName = displayName
         self.email = email
+        self.status = status
         
     }
+    
+    init() {}
     
 }

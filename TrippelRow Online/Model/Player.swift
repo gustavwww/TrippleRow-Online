@@ -13,75 +13,10 @@ import FirebaseDatabase
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-protocol PlayerDelegate {
-    
-    func player(signedIn player: Player)
-    func player(created player: Player)
-    func friendRequestSent(to: String)
-    
-    func gotFriendRequest(from: [DBUser], to: Player)
-    func acceptedFriendRequest(from: DBUser)
-    
-    func errorOccured(error: Error)
-    
-}
-
-extension PlayerDelegate where Self: UIViewController {
-    
-    func player(signedIn player: Player) {}
-    func player(created player: Player) {}
-    func friendRequestSent(to: String) {}
-    
-    //Handling friendRequests
-    func gotFriendRequest(from: [DBUser], to: Player) {
-        
-        if from.count == 0 {
-            return
-        }
-        print(from.count)
-        let alertController = UIAlertController(title: "Vänförfrågan mottagen från \(from.last!.displayName!)", message: "", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Acceptera", style: .default, handler: { (action) in
-            
-            to.acceptFriendRequest(from: from.last!, completed: {
-                
-                self.gotFriendRequest(from: to.friendRequests, to: to)
-                
-            })
-            
-        }))
-        
-        alertController.addAction(UIAlertAction(title: "Neka", style: .destructive, handler: { (action) in
-            
-            to.declineFriendRequest(from: from.last!)
-            self.gotFriendRequest(from: to.friendRequests, to: to)
-            
-        }))
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    func acceptedFriendRequest(from: DBUser) {}
-    
-    //Handling errors
-    func errorOccured(error: Error) {
-        removeActivityIndicator()
-        
-        var errorMsg = error.localizedDescription
-        
-        if let error = error as? StringError {
-            errorMsg = error.stringDescription
-        }
-        
-        let alertController = UIAlertController(title: "Fel", message: errorMsg, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-}
 
 class Player {
     
+    //firUser should never be nil while using this class.
     var firUser: User?
     var dbRef: DatabaseReference!
     
@@ -91,6 +26,9 @@ class Player {
     var friends: [DBUser]!
     var friendRequests: [DBUser]!
     
+    var gameIDs: [String]!
+    var gameRequests: [DBUser]!
+    
     init() {
         dbRef = Database.database().reference()
     }
@@ -99,20 +37,50 @@ class Player {
         dbRef = Database.database().reference()
         
         self.firUser = firUser
+        
+        self.setStatus(status: .Online)
+        
         delegate?.player(signedIn: self)
     }
     
-    func checkIfOnline() -> Bool {
+    func checkIfSignedIn() -> Bool {
         
         if let user = Auth.auth().currentUser {
             
             self.firUser = user
+            
+            setStatus(status: .Online)
+            
             delegate?.player(signedIn: self)
             
             return true
         }
         
         return false
+    }
+    
+    func hasBeenOnlineBefore(completed: @escaping (Bool) -> Void) {
+        
+        dbRef.child("users").child(firUser!.uid).observeSingleEvent(of: .value) { (snapshot) in
+            
+            if let dict = snapshot.value as? Dictionary<String, AnyObject> {
+                
+                if let hasBeenOnlineBefore = dict["hasBeenOnlineBefore"] as? Bool {
+                    
+                    if hasBeenOnlineBefore {
+                        
+                        completed(true)
+                        return
+                    }
+                    completed(false)
+                } else {
+                    completed(false)
+                }
+                
+            }
+            
+        }
+        
     }
     
     
@@ -125,6 +93,9 @@ class Player {
             }
             
             self.firUser = user
+            
+            self.setStatus(status: .Online)
+            
             self.delegate?.player(signedIn: self)
             
         }
@@ -142,10 +113,52 @@ class Player {
             
             self.firUser = user
             
-            let displayName = (user?.displayName)!
-            self.setDisplayName(displayName: displayName)
+            self.setStatus(status: .Online)
             
-            self.delegate?.player(signedIn: self)
+            self.hasBeenOnlineBefore(completed: { (hasBeenOnline) in
+                
+                if !hasBeenOnline {
+                    
+                    let longName = self.firUser!.displayName!
+                    
+                    var displayName: String!
+                    
+                    if let index = longName.range(of: " ")?.lowerBound {
+                        
+                        displayName = String(longName.prefix(upTo: index))
+                        
+                        if let index2 = longName.range(of: " ")?.upperBound {
+                            
+                            displayName.append(String(longName.suffix(from: index2).first!))
+                            
+                        }
+                        
+                        for _ in 0...4 {
+                            
+                            let suffix = arc4random_uniform(10)
+                            
+                            displayName.append(String(suffix))
+                            
+                        }
+                        
+                        print(displayName)
+                    }
+                    
+                    self.setDisplayName(displayName: displayName)
+                    self.setDBEmail(email: self.firUser!.email!)
+                    
+                    self.dbRef.child("users").child(self.firUser!.uid).child("hasBeenOnlineBefore").setValue(true)
+                    
+                    self.delegate?.player(signedIn: self)
+                    
+                } else {
+                    
+                    self.delegate?.player(signedIn: self)
+                    
+                }
+                
+            })
+            
         }
         
     }
@@ -163,7 +176,9 @@ class Player {
             self.firUser = user
             
             self.setDisplayName(displayName: displayName)
+            self.setDBEmail(email: email)
             
+            self.setStatus(status: .Online)
             self.delegate?.player(created: self)
         }
         
@@ -185,6 +200,12 @@ class Player {
         
     }
     
+    func setDBEmail(email: String) {
+        
+        dbRef.child("users").child(firUser!.uid).child("email").setValue(email)
+        
+    }
+    
     func signOut() {
         
         do {
@@ -192,13 +213,44 @@ class Player {
         } catch {
             delegate?.errorOccured(error: StringError(ErrorType.SignOutError))
         }
+        
+        setStatus(status: .Offline)
+        
     }
     
-    func acceptFriendRequest(from request: DBUser, completed: @escaping () -> Void) {
+    func setStatus(status: PlayerStatus) {
+        
+        if status == .Online {
+            dbRef.child("users").child(firUser!.uid).child("status").setValue("online")
+        } else if status == .Offline {
+            dbRef.child("users").child(firUser!.uid).child("status").setValue("offline")
+        }
+        
+    }
+    
+    func getStatus(completed: @escaping (PlayerStatus) -> Void) {
+        
+        dbRef.child("users").child(firUser!.uid).child("status").observeSingleEvent(of: .value) { (snapshot) in
+            
+            if let value = snapshot.value as? String {
+                
+                if value == "online" {
+                    completed(.Online)
+                } else {
+                    completed(.Offline)
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    func acceptLastFriendRequest(completed: @escaping () -> Void) {
         
         for i in friends {
             
-            if i.userID == request.userID {
+            if i.userID == friendRequests.last!.userID {
                 //Friend already exists
                 
                 _ = self.friendRequests.popLast()
@@ -217,21 +269,21 @@ class Player {
             friendsDict[i.userID] = true
         }
         
-        friendsDict[request.userID] = true
+        friendsDict[friendRequests.last!.userID] = true
         
         dbRef.child("users").child(firUser!.uid).child("friends").setValue(friendsDict)
         
-        dbRef.child("users").child(request.userID).child("friends").observeSingleEvent(of: .value) { (snapshot) in
+        dbRef.child("users").child(friendRequests.last!.userID).child("friends").observeSingleEvent(of: .value) { (snapshot) in
             
             if var friends = snapshot.value as? Dictionary<String, Bool> {
                 
-                self.dbRef.child("users").child(request.userID).child("friends").setValue(friends[self.firUser!.uid] = true)
+                self.dbRef.child("users").child(self.friendRequests.last!.userID).child("friends").setValue(friends[self.firUser!.uid] = true)
                 
             } else {
                 
                 let friendsDictForFirstFriend = [self.firUser!.uid : true]
                 
-                self.dbRef.child("users").child(request.userID).child("friends").setValue(friendsDictForFirstFriend)
+                self.dbRef.child("users").child(self.friendRequests.last!.userID).child("friends").setValue(friendsDictForFirstFriend)
                 
             }
             _ = self.friendRequests.popLast()
@@ -244,14 +296,14 @@ class Player {
             
             //Removing friendRequest - this is calling the observe function and makes sure friendRequests property is up-to-date.
             self.dbRef.child("users").child(self.firUser!.uid).child("friendRequests").setValue(friendRequestsDict)
-            self.delegate?.acceptedFriendRequest(from: request)
+            self.delegate?.acceptedFriendRequest(from: self.friendRequests.last!)
             
             completed()
         }
         
     }
     
-    func declineFriendRequest(from request: DBUser) {
+    func declineLastFriendRequest() {
         
         
         _ = self.friendRequests.popLast()
@@ -265,89 +317,151 @@ class Player {
         dbRef.child("users").child(firUser!.uid).child("friendRequests").setValue(friendRequestsDict)
     }
     
-    //Start listening for incoming changes. - Listening to (gameinvites), friendrequests, friends
+    //Start listening for incoming changes. - Listening to (gameinvites), friendrequests, friends, games
     func startObserve() {
         
         if firUser == nil {
             return
         }
         
-        dbRef.observe(.value) { (snapshot) in
+        dbRef.child("users").child(firUser!.uid).observe(.value) { (snapshot) in
             
-            if let dict = snapshot.value as? Dictionary<String, AnyObject> {
+            if let me = snapshot.value as? Dictionary<String, AnyObject> {
+                    
+            var friendRequestsUID = [String]()
+                    
+            var currentFriendsUID = [String]()
+                    
+            var gameRequestsUID = [String]()
                 
-                if let users = dict["users"] as? Dictionary<String, AnyObject> {
-                    
-                    var friendRequestsUID = [String]()
-                    var currentFriendsUID = [String]()
-                    
-                    if let me = users[self.firUser!.uid] as? Dictionary<String, AnyObject> {
-                        
-                        if let friendRequests = me["friendRequests"] as? Dictionary<String, Bool> {
+                if let friendRequests = me["friendRequests"] as? Dictionary<String, Bool> {
                             
-                            for i in friendRequests {
+                    for i in friendRequests {
                                 
-                                friendRequestsUID.append(i.key)
+                        friendRequestsUID.append(i.key)
                                 
-                            }
-                            
-                        }
-                        
-                        if let friends = me["friends"] as? Dictionary<String, Bool> {
-                            
-                            for i in friends {
-                                currentFriendsUID.append(i.key)
-                            }
-                            print("Vänner hittade: \(currentFriendsUID.count)")
-                        }
-                        
                     }
-                    //Fetching information about friends.
-                    var friendRequesters = [DBUser]()
-                    var currentFriends = [DBUser]()
-                    
-                    for i in users {
-                        
-                        if friendRequestsUID.contains(i.key) {
-                            let dbUser = DBUser(i.key)
                             
-                            if let displayName = i.value["displayName"] as? String {
+                }
+                        
+                if let friends = me["friends"] as? Dictionary<String, Bool> {
+                            
+                    for i in friends {
                                 
-                                dbUser.displayName = displayName
-                                friendRequesters.append(dbUser)
-                            }
+                        currentFriendsUID.append(i.key)
                             
-                        }
-                        
-                        if currentFriendsUID.contains(i.key) {
-                            let dbUser = DBUser(i.key)
-                            
-                            if let displayName = i.value["displayName"] as? String {
-                                
-                                dbUser.displayName = displayName
-                                currentFriends.append(dbUser)
-                            }
-                            
-                        }
-                        
                     }
                     
-                    self.friendRequests = friendRequesters
-                    self.friends = currentFriends
-                    self.delegate?.gotFriendRequest(from: self.friendRequests, to: self)
+                }
+                        
+                if let gameRequests = me["gameRequests"] as? Dictionary<String, Bool> {
+                            
+                    for i in gameRequests {
+                                
+                        gameRequestsUID.append(i.key)
+                                
+                    }
+                            
                 }
                 
+                self.dbRef.observeSingleEvent(of: .value, with: { (snapshotDB) in
+                    
+                    if let dict = snapshotDB.value as? Dictionary<String, AnyObject> {
+                        
+                        if let users = dict["users"] as? Dictionary<String, AnyObject> {
+                            
+                            //Fetching users information
+                            var friendRequesters = [DBUser]()
+                            
+                            var currentFriends = [DBUser]()
+                            
+                            var gameRequesters = [DBUser]()
+                            
+                            for i in users {
+                                
+                                if friendRequestsUID.contains(i.key) {
+                                    let dbUser = DBUser(i.key)
+                                    
+                                    if let displayName = i.value["displayName"] as? String {
+                                        
+                                        dbUser.displayName = displayName
+                                        friendRequesters.append(dbUser)
+                                    }
+                                    
+                                }
+                                
+                                if currentFriendsUID.contains(i.key) {
+                                    let dbUser = DBUser(i.key)
+                                    
+                                    if let displayName = i.value["displayName"] as? String {
+                                        
+                                        dbUser.displayName = displayName
+                                        currentFriends.append(dbUser)
+                                    }
+                                    
+                                }
+                                
+                                if gameRequestsUID.contains(i.key) {
+                                    let dbUser = DBUser(i.key)
+                                    
+                                    if let displayName = i.value["displayName"] as? String {
+                                        
+                                        dbUser.displayName = displayName
+                                        gameRequesters.append(dbUser)
+                                    }
+                                    
+                                }
+                                
+                            }
+                            self.friends = currentFriends
+                            
+                            self.friendRequests = friendRequesters
+                            self.gameRequests = gameRequesters
+                            
+                            self.delegate?.gotFriendRequest(from: self.friendRequests, to: self)
+                            self.delegate?.gotGameRequest(from: self.gameRequests, to: self)
+                        }
+                            
+                        if let games = dict["games"] as? Dictionary<String, AnyObject> {
+                            
+                            for game in games {
+                                
+                                if let gameDict = game.value as? Dictionary<String, AnyObject> {
+                                    
+                                    for i in gameDict {
+                                        
+                                        if let host = i.value["host"] as? String {
+                                            if host == self.firUser!.uid {
+                                                self.gameIDs.append(game.key)
+                                            }
+                                        }
+                                        
+                                        if let player = i.value["player"] as? String {
+                                            if player == self.firUser!.uid {
+                                                self.gameIDs.append(game.key)
+                                            }
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                                
+                            }
+                            
+                        }
+                        self.delegate?.playerObserverRan(player: self)
+                    }
+                    
+                })
+                
             }
-            
+                    
         }
         
     }
+
     
     func sendFriendRequest(to userID: String) {
-        
-        if firUser == nil {
-            return
-        }
         
         dbRef.child("users").child(userID).child("friendRequests").observeSingleEvent(of: .value) { (snapshot) in
             
@@ -376,6 +490,56 @@ class Player {
         }
         
         
+    }
+    
+    func sendGameRequest(to userID: String) {
+        
+        dbRef.child("users").child(userID).child("gameRequests").observeSingleEvent(of: .value) { (snapshot) in
+            
+            var requests = Dictionary<String, Bool>()
+            
+            if let gameRequests = snapshot.value as? Dictionary<String, Bool> {
+                
+                for i in gameRequests {
+                    requests[i.key] = true
+                }
+                
+            }
+            
+            requests[self.firUser!.uid] = true
+            
+            self.dbRef.child("users").child(userID).child("gameRequests").setValue(requests)
+            self.delegate?.gameRequestSent(to: userID)
+        }
+        
+    }
+    
+    func declineLastGameRequest() {
+        
+        _ = gameRequests.popLast()
+        
+        var gameRequestsDict = Dictionary<String, Bool>()
+        
+        for i in gameRequests {
+            gameRequestsDict[i.userID] = true
+        }
+        
+        dbRef.child("users").child(firUser!.uid).child("gameRequests").setValue(gameRequestsDict)
+    }
+    
+    func acceptLastGameRequest() {
+        
+        GameManager().createGame(hostUID: gameRequests.last!.userID, playerUID: firUser!.uid)
+        
+        _ = gameRequests.popLast()
+        
+        var gameRequestsDict = Dictionary<String, Bool>()
+        
+        for i in gameRequests {
+            gameRequestsDict[i.userID] = true
+        }
+        
+        dbRef.child("users").child(firUser!.uid).child("gameRequests").setValue(gameRequestsDict)
     }
     
 }

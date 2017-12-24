@@ -33,7 +33,7 @@ class LogVC: UIViewController, UITextFieldDelegate, PlayerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        _ = player.checkIfOnline()
+        _ = player.checkIfSignedIn()
         
     }
     
@@ -79,7 +79,7 @@ class LogVC: UIViewController, UITextFieldDelegate, PlayerDelegate {
     @IBAction func facebookLoginPressed(_ sender: LogScreenButtons) {
         let loginManager = FBSDKLoginManager()
         showActivityIndicator()
-        loginManager.logIn(withReadPermissions: ["public_profile", "user_friends"], from: self) { (loginResult, error) in
+        loginManager.logIn(withReadPermissions: ["public_profile", "user_friends", "email"], from: self) { (loginResult, error) in
             
             if let error = error {
                 
