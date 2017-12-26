@@ -26,16 +26,10 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
         
         self.friends = self.player.friends
         
-        if self.friends!.isEmpty {
+        if friends == nil {
             
             self.tableView.isHidden = true
             self.noFriendsLbl.isHidden = false
-            
-            
-        } else {
-            
-            self.tableView.isHidden = false
-            self.noFriendsLbl.isHidden = true
             
         }
         
@@ -55,6 +49,7 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
         if let friends = self.friends {
             return friends.count
         }
+        
         return 0
     }
     

@@ -77,6 +77,8 @@ class Player {
                     completed(false)
                 }
                 
+            } else {
+                completed(false)
             }
             
         }
@@ -109,11 +111,10 @@ class Player {
             
             if error != nil {
                 self.delegate?.errorOccured(error: StringError(ErrorType.FacebookSignInError))
+                return
             }
             
             self.firUser = user
-            
-            self.setStatus(status: .Online)
             
             self.hasBeenOnlineBefore(completed: { (hasBeenOnline) in
                 
@@ -146,6 +147,8 @@ class Player {
                     
                     self.setDisplayName(displayName: displayName)
                     self.setDBEmail(email: self.firUser!.email!)
+                    
+                    self.setStatus(status: .Online)
                     
                     self.dbRef.child("users").child(self.firUser!.uid).child("hasBeenOnlineBefore").setValue(true)
                     
@@ -194,7 +197,7 @@ class Player {
                 self.delegate?.errorOccured(error: StringError(ErrorType.DisplayNameChangeError))
                 return
             }
-            self.dbRef.child("users").child((self.firUser?.uid)!).setValue(["displayName" : displayName])
+            self.dbRef.child("users").child((self.firUser?.uid)!).child("displayName").setValue(displayName)
             
         })
         
@@ -286,6 +289,7 @@ class Player {
                 self.dbRef.child("users").child(self.friendRequests.last!.userID).child("friends").setValue(friendsDictForFirstFriend)
                 
             }
+            let request = self.friendRequests.last!
             _ = self.friendRequests.popLast()
             
             var friendRequestsDict = Dictionary<String, Bool>()
@@ -296,7 +300,7 @@ class Player {
             
             //Removing friendRequest - this is calling the observe function and makes sure friendRequests property is up-to-date.
             self.dbRef.child("users").child(self.firUser!.uid).child("friendRequests").setValue(friendRequestsDict)
-            self.delegate?.acceptedFriendRequest(from: self.friendRequests.last!)
+            self.delegate?.acceptedFriendRequest(from: request)
             
             completed()
         }

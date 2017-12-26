@@ -164,13 +164,13 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
         
         if position == nil {
             //Out of bounds.
-            game.board.resetPosition(for: button, with: buttonIndex, boardView: boardView)
+            game.board.resetPosition(for: button, with: buttonIndex, boardView: boardView, animated: true)
             return
         }
         
         if buttons[position!]?.imageView?.image != nil {
             //Already occupied
-            game.board.resetPosition(for: button, with: buttonIndex, boardView: boardView)
+            game.board.resetPosition(for: button, with: buttonIndex, boardView: boardView, animated: true)
             return
         }
         
@@ -179,18 +179,15 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
         let previousPosition = buttonIndex
         let newPosition = position!
         
-        let movedButton = button
-        let oldButton = buttons[newPosition]
+        var buttonViews = buttons!
         
-        buttons[newPosition] = movedButton
-        buttons[previousPosition] = oldButton
+        game.board.moveToPosition(previous: previousPosition, new: newPosition, button: button, buttonViews: &buttonViews, boardView: boardView)
+        buttons = buttonViews
         
-        updateToGameBoard()
-        
-        checkMoveAndUploadData()
+        increaseRoundAndUploadData()
     }
     
-    func checkMoveAndUploadData() {
+    func increaseRoundAndUploadData() {
         
         game.currentRound = game.currentRound + 1 // += Can't be used here.
         
@@ -219,50 +216,6 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
         }
         
         game.uploadData()
-    }
-    
-    func getFromGameBoard() {
-        
-        for i in 0...8 {
-            
-            if game.board.board[i] == "host" {
-                
-                buttons[i]?.imageView?.image = UIImage(named: "circle")
-                
-            } else if game.board.board[i] == "player" {
-                
-                buttons[i]?.imageView?.image = UIImage(named: "cross")
-                
-            } else {
-                
-                buttons[i]?.imageView?.image = nil
-                
-            }
-            
-        }
-        
-    }
-    
-    func updateToGameBoard() {
-        
-        for i in 0...8 {
-            
-            if buttons[i]?.imageView?.image == UIImage(named: "circle") {
-                
-                game.board.board[i] = "host"
-                
-            } else if buttons[i]?.imageView?.image == UIImage(named: "cross") {
-                
-                game.board.board[i] = "player"
-                
-            } else {
-                
-                game.board.board[i] = "empty"
-                
-            }
-            
-        }
-        
     }
     
     func didReceiveGameUpdate(game: Game) {
@@ -332,8 +285,9 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
         }
         
         //Board setup
-        getFromGameBoard()
-        
+        var buttonViews = buttons!
+        game.board.getDictFromGameBoard(buttonViews: &buttonViews)
+        buttons = buttonViews
     }
     
     func buttonPressed(sender: UIButton) {
@@ -349,9 +303,9 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
         
         sender.imageView?.image = UIImage(named: myImageType)
         
-        updateToGameBoard()
+        game.board.updateToGameDict(buttonViews: buttons)
         
-        checkMoveAndUploadData()
+        increaseRoundAndUploadData()
     }
     
     @IBAction func backPressed(_ sender: UIButton) {

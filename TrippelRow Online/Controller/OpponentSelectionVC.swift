@@ -14,8 +14,7 @@ class OpponentSelectionVC: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var tableView: UITableView!
     
     var player: Player!
-    
-    var friends: [String]!
+    var friends: [DBUser]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +24,12 @@ class OpponentSelectionVC: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.delegate = self
         tableView.dataSource = self
         
-        friends = [String]()
+        friends = player.friends
         
-        for i in player.friends {
-            friends.append(i.displayName!)
+        if friends == nil {
+            
+            tableView.isHidden = true
+            
         }
         
         tableView.reloadData()
@@ -40,7 +41,11 @@ class OpponentSelectionVC: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return friends.count
+        if let numberOfFriends = friends?.count {
+            return numberOfFriends
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -51,7 +56,7 @@ class OpponentSelectionVC: UIViewController, UITableViewDelegate, UITableViewDat
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "SelectFriendCell", for: indexPath) as? FriendCell {
             
-            cell.setupCell(displayName: friends[indexPath.row])
+            cell.setupCell(displayName: friends![indexPath.row].displayName!)
             
             return cell
         }
@@ -61,9 +66,9 @@ class OpponentSelectionVC: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let clicked = friends[indexPath.row]
+        let clicked = friends![indexPath.row].userID
         
-        let alertController = UIAlertController(title: "Utmana \(clicked)?", message: "Vill du utmana \(clicked) i en tre-i-rad kamp?", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Utmana \(String(describing: clicked))?", message: "Vill du utmana \(String(describing: clicked)) i en tre-i-rad kamp?", preferredStyle: .alert)
         
         alertController.addAction(UIAlertAction(title: "Ja", style: .default, handler: { (action) in
             
@@ -82,6 +87,21 @@ class OpponentSelectionVC: UIViewController, UITableViewDelegate, UITableViewDat
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         
         present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func backPressed(_ sender: UIButton) {
+        
+        performSegue(withIdentifier: "unwindFromOpponentSelectionVC", sender: nil)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let dest = segue.destination as? NewGameVC {
+            dest.player = self.player
+        }
+        
     }
 
 }

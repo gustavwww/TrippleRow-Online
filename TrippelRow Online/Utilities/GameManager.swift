@@ -47,6 +47,37 @@ class GameManager {
         
     }
     
+    func downloadMultipleGames(gameIDs: [String], completed: @escaping ([Game]?, StringError?) -> Void) {
+        
+        var games = [Game]()
+        
+        for i in gameIDs {
+            
+            downloadGame(gameID: i, completed: { (game, error) in
+                
+                if error != nil {
+                    completed(nil, error!)
+                    return
+                }
+                
+                games.append(game!)
+                checkIfFinished()
+            })
+            
+            func checkIfFinished() {
+                
+                if gameIDs.count == games.count {
+                    
+                    completed(games, nil)
+                    return
+                }
+                
+            }
+            
+        }
+        
+    }
+    
     func downloadGame(gameID: String, completed: @escaping (Game?, StringError?) -> Void) {
         
         dbRef.observeSingleEvent(of: .value) { (snapshot) in

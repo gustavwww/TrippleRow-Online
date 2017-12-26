@@ -13,6 +13,8 @@
 		9731E5A01FCC9955007E2A4E /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9731E59F1FCC9955007E2A4E /* FriendsVC.swift */; };
 		9731E5A21FCC9A21007E2A4E /* SlideSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9731E5A11FCC9A21007E2A4E /* SlideSegue.swift */; };
 		9731E5A41FCC9B49007E2A4E /* UnwindSlideSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9731E5A31FCC9B49007E2A4E /* UnwindSlideSegue.swift */; };
+		9748F3A11FF14DBC00F86D9A /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748F3A01FF14DBC00F86D9A /* GameCell.swift */; };
+		9748F3A31FF1576F00F86D9A /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748F3A21FF1576F00F86D9A /* SectionHeaderView.swift */; };
 		97532F401FCF866700EF8E78 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97532F3F1FCF866700EF8E78 /* RegisterVC.swift */; };
 		9753E1371FC324D80057540F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9753E1361FC324D80057540F /* AppDelegate.swift */; };
 		9753E13C1FC324D80057540F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9753E13A1FC324D80057540F /* Main.storyboard */; };
@@ -57,6 +59,8 @@
 		9731E59F1FCC9955007E2A4E /* FriendsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVC.swift; sourceTree = "<group>"; };
 		9731E5A11FCC9A21007E2A4E /* SlideSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideSegue.swift; sourceTree = "<group>"; };
 		9731E5A31FCC9B49007E2A4E /* UnwindSlideSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnwindSlideSegue.swift; sourceTree = "<group>"; };
+		9748F3A01FF14DBC00F86D9A /* GameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
+		9748F3A21FF1576F00F86D9A /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		97532F3F1FCF866700EF8E78 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		9753E1331FC324D80057540F /* TrippelRow Online.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TrippelRow Online.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9753E1361FC324D80057540F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -202,6 +206,8 @@
 				97EF64921FCE10A3002197EB /* FriendCell.swift */,
 				97E2FFFA1FD1A10300673E45 /* LoginView.swift */,
 				97EDC5221FE565A000AB4E32 /* BoardView.swift */,
+				9748F3A01FF14DBC00F86D9A /* GameCell.swift */,
+				9748F3A21FF1576F00F86D9A /* SectionHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -395,6 +401,7 @@
 				9731E5A21FCC9A21007E2A4E /* SlideSegue.swift in Sources */,
 				97E2FFFB1FD1A10300673E45 /* LoginView.swift in Sources */,
 				979D2DAE1FD1A980003561B6 /* RegisterTextFields.swift in Sources */,
+				9748F3A11FF14DBC00F86D9A /* GameCell.swift in Sources */,
 				979D2DB11FD1B203003561B6 /* RegistrationManeger.swift in Sources */,
 				976B6E961FC7642F0050B1BF /* MenuVC.swift in Sources */,
 				97EF64931FCE10A3002197EB /* FriendCell.swift in Sources */,
@@ -403,6 +410,7 @@
 				976B6E981FC7659E0050B1BF /* MenuCell.swift in Sources */,
 				976B6E9D1FC775660050B1BF /* KeyboardCloseExtension.swift in Sources */,
 				9731E5A41FCC9B49007E2A4E /* UnwindSlideSegue.swift in Sources */,
+				9748F3A31FF1576F00F86D9A /* SectionHeaderView.swift in Sources */,
 				97CDF1AD1FDD62FF00BEA4C8 /* GameManager.swift in Sources */,
 				9731E59C1FCC8D87007E2A4E /* NewGameVC.swift in Sources */,
 				9757361C1FCD915500728143 /* AddFriendVC.swift in Sources */,

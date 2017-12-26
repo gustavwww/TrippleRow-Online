@@ -77,32 +77,29 @@ class LogVC: UIViewController, UITextFieldDelegate, PlayerDelegate {
     }
     
     @IBAction func facebookLoginPressed(_ sender: LogScreenButtons) {
-        let loginManager = FBSDKLoginManager()
         showActivityIndicator()
+        
+        let loginManager = FBSDKLoginManager()
         loginManager.logIn(withReadPermissions: ["public_profile", "user_friends", "email"], from: self) { (loginResult, error) in
             
             if let error = error {
                 
                 self.errorOccured(error: error)
                 
-                return
-            }
-            if let result = loginResult , let token = result.token , let tokenString = token.tokenString {
-                
-                let credential = FacebookAuthProvider.credential(withAccessToken: tokenString)
-                self.player.signInUser(credential: credential)
-                
+                self.removeActivityIndicator()
                 return
             }
             
-            self.removeActivityIndicator()
+            let credential = FacebookAuthProvider.credential(withAccessToken: (loginResult?.token.tokenString)!)
+            self.player.signInUser(credential: credential)
+            
         }
     }
     
     func player(signedIn player: Player) {
         
-        performSegue(withIdentifier: "toMainVC", sender: nil)
         removeActivityIndicator()
+        performSegue(withIdentifier: "toMainVC", sender: nil)
         
     }
     

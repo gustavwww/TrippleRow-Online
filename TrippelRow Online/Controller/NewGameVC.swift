@@ -31,6 +31,8 @@ class NewGameVC: UIViewController, PlayerDelegate {
         
     }
     
+    @IBAction func unwindToNewGameVC(segue: UIStoryboardSegue) {player.delegate = self}
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let dest = segue.destination as? MainVC {

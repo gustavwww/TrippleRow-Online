@@ -23,6 +23,64 @@ class Board {
         
     }
     
+    func moveToPosition(previous: Int, new: Int, button: UIButton, buttonViews: inout [Int : UIButton], boardView: BoardView) {
+        
+        let movedButton = button
+        let replaceButton = buttonViews[new]!
+        
+        resetPosition(for: movedButton, with: new, boardView: boardView, animated: true)
+        resetPosition(for: replaceButton, with: previous, boardView: boardView, animated: false)
+        
+        buttonViews[previous] = replaceButton
+        buttonViews[new] = movedButton
+        
+        updateToGameDict(buttonViews: buttonViews)
+    }
+    
+    func getDictFromGameBoard(buttonViews: inout [Int : UIButton]) {
+        
+        for i in 0...8 {
+            
+            if board[i] == "host" {
+                
+                buttonViews[i]?.imageView?.image = UIImage(named: "circle")
+                
+            } else if board[i] == "player" {
+                
+                buttonViews[i]?.imageView?.image = UIImage(named: "cross")
+                
+            } else {
+                
+                buttonViews[i]?.imageView?.image = nil
+                
+            }
+            
+        }
+        
+    }
+    
+    func updateToGameDict(buttonViews: [Int : UIButton]) {
+        
+        for i in 0...8 {
+            
+            if buttonViews[i]?.imageView?.image == UIImage(named: "circle") {
+                
+                board[i] = "host"
+                
+            } else if buttonViews[i]?.imageView?.image == UIImage(named: "cross") {
+                
+                board[i] = "player"
+                
+            } else {
+                
+                board[i] = "empty"
+                
+            }
+            
+        }
+        
+    }
+    
     func getCurrentPosition(of: UIButton, boardView: BoardView) -> Int? {
         
         if of.center.x > boardView.bounds.minX && of.center.x < boardView.bounds.maxX / 3 {
@@ -98,38 +156,38 @@ class Board {
         return nil
     }
     
-    func resetPosition(for button: UIButton, with index: Int, boardView: BoardView) {
+    func resetPosition(for button: UIButton, with index: Int, boardView: BoardView, animated: Bool) {
         
-        var moveToCenter: CGPoint!
+        var moveToPoint: CGPoint!
         
         switch index {
             
         case 0:
-            moveToCenter = CGPoint(x: boardView.bounds.maxX / 6, y: boardView.bounds.maxY / 6)
+            moveToPoint = CGPoint(x: boardView.bounds.maxX / 6, y: boardView.bounds.maxY / 6)
             
         case 1:
-            moveToCenter = CGPoint(x: boardView.bounds.maxX / 6 * 3, y: boardView.bounds.maxY / 6)
+            moveToPoint = CGPoint(x: boardView.bounds.maxX / 6 * 3, y: boardView.bounds.maxY / 6)
             
         case 2:
-            moveToCenter = CGPoint(x: boardView.bounds.maxX / 6 * 5, y: boardView.bounds.maxY / 6)
+            moveToPoint = CGPoint(x: boardView.bounds.maxX / 6 * 5, y: boardView.bounds.maxY / 6)
             
         case 3:
-            moveToCenter = CGPoint(x: boardView.bounds.maxX / 6, y: boardView.bounds.maxY / 6 * 3)
+            moveToPoint = CGPoint(x: boardView.bounds.maxX / 6, y: boardView.bounds.maxY / 6 * 3)
             
         case 4:
-            moveToCenter = CGPoint(x: boardView.bounds.maxX / 6 * 3, y: boardView.bounds.maxY / 6 * 3)
+            moveToPoint = CGPoint(x: boardView.bounds.maxX / 6 * 3, y: boardView.bounds.maxY / 6 * 3)
             
         case 5:
-            moveToCenter = CGPoint(x: boardView.bounds.maxX / 6 * 5, y: boardView.bounds.maxY / 6 * 3)
+            moveToPoint = CGPoint(x: boardView.bounds.maxX / 6 * 5, y: boardView.bounds.maxY / 6 * 3)
             
         case 6:
-            moveToCenter = CGPoint(x: boardView.bounds.maxX / 6, y: boardView.bounds.maxY / 6 * 5)
+            moveToPoint = CGPoint(x: boardView.bounds.maxX / 6, y: boardView.bounds.maxY / 6 * 5)
             
         case 7:
-            moveToCenter = CGPoint(x: boardView.bounds.maxX / 6 * 3, y: boardView.bounds.maxY / 6 * 5)
+            moveToPoint = CGPoint(x: boardView.bounds.maxX / 6 * 3, y: boardView.bounds.maxY / 6 * 5)
             
         case 8:
-            moveToCenter = CGPoint(x: boardView.bounds.maxX / 6 * 5, y: boardView.bounds.maxY / 6 * 5)
+            moveToPoint = CGPoint(x: boardView.bounds.maxX / 6 * 5, y: boardView.bounds.maxY / 6 * 5)
             
         default:
             
@@ -137,13 +195,21 @@ class Board {
             
         }
         
-        if moveToCenter != nil {
+        if moveToPoint != nil {
             
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+            if animated {
                 
-                button.center = moveToCenter
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+                    
+                    button.center = moveToPoint
+                    
+                }, completion: nil)
                 
-            }, completion: nil)
+            } else {
+                
+                button.center = moveToPoint
+                
+            }
             
         }
         
