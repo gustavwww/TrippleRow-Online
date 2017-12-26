@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,11 +21,29 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="6Q4-WU-lto">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logga" translatesAutoresizingMaskIntoConstraints="NO" id="Ct0-a5-HX6">
+                                <rect key="frame" x="20" y="205" width="335" height="97"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="97" id="n7U-xY-0Nb"/>
+                                    <constraint firstAttribute="width" constant="335" id="p3m-KD-to3"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Online-Logga" translatesAutoresizingMaskIntoConstraints="NO" id="1Uw-v1-o0R">
+                                <rect key="frame" x="125" y="310" width="125" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="1Fj-5e-IeN"/>
+                                    <constraint firstAttribute="width" constant="125" id="ZeQ-gk-cVa"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="1Uw-v1-o0R" firstAttribute="top" secondItem="Ct0-a5-HX6" secondAttribute="bottom" constant="8" id="3oB-nd-8Gb"/>
+                            <constraint firstItem="1Uw-v1-o0R" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="4q8-mx-WuV"/>
                             <constraint firstItem="6Q4-WU-lto" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="79s-em-ogI"/>
+                            <constraint firstItem="Ct0-a5-HX6" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-80" id="DJV-aL-Lm9"/>
                             <constraint firstItem="6Q4-WU-lto" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Lm0-nC-1AC"/>
+                            <constraint firstItem="Ct0-a5-HX6" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="a42-bl-lP8"/>
                             <constraint firstItem="6Q4-WU-lto" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="kFW-X1-NHE"/>
                             <constraint firstItem="6Q4-WU-lto" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="vgk-we-hMW"/>
                         </constraints>
@@ -39,5 +57,7 @@
     </scenes>
     <resources>
         <image name="Background" width="310" height="552"/>
+        <image name="Logga" width="183" height="78"/>
+        <image name="Online-Logga" width="86" height="33"/>
     </resources>
 </document>

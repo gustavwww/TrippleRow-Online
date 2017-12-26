@@ -142,7 +142,6 @@ class Player {
                             
                         }
                         
-                        print(displayName)
                     }
                     
                     self.setDisplayName(displayName: displayName)
@@ -249,7 +248,11 @@ class Player {
         
     }
     
-    func acceptLastFriendRequest(completed: @escaping () -> Void) {
+    func acceptLastFriendRequest() {
+        
+        if friendRequests.last == nil {
+            return
+        }
         
         for i in friends {
             
@@ -257,8 +260,6 @@ class Player {
                 //Friend already exists
                 
                 _ = self.friendRequests.popLast()
-                
-                completed()
                 return
             }
             
@@ -266,59 +267,26 @@ class Player {
         
         //Adding friend to both players
         
-        var friendsDict = Dictionary<String, Bool>()
+        dbRef.child("users").child(firUser!.uid).child("friends").child(friendRequests.last!.userID).setValue(true)
         
-        for i in friends {
-            friendsDict[i.userID] = true
-        }
+        dbRef.child("users").child(friendRequests.last!.userID).child("friends").child(firUser!.uid).setValue(true)
         
-        friendsDict[friendRequests.last!.userID] = true
+        //Removing request
         
-        dbRef.child("users").child(firUser!.uid).child("friends").setValue(friendsDict)
-        
-        dbRef.child("users").child(friendRequests.last!.userID).child("friends").observeSingleEvent(of: .value) { (snapshot) in
-            
-            if var friends = snapshot.value as? Dictionary<String, Bool> {
-                
-                self.dbRef.child("users").child(self.friendRequests.last!.userID).child("friends").setValue(friends[self.firUser!.uid] = true)
-                
-            } else {
-                
-                let friendsDictForFirstFriend = [self.firUser!.uid : true]
-                
-                self.dbRef.child("users").child(self.friendRequests.last!.userID).child("friends").setValue(friendsDictForFirstFriend)
-                
-            }
-            let request = self.friendRequests.last!
-            _ = self.friendRequests.popLast()
-            
-            var friendRequestsDict = Dictionary<String, Bool>()
-            
-            for i in self.friendRequests {
-                friendRequestsDict[i.userID] = true
-            }
-            
-            //Removing friendRequest - this is calling the observe function and makes sure friendRequests property is up-to-date.
-            self.dbRef.child("users").child(self.firUser!.uid).child("friendRequests").setValue(friendRequestsDict)
-            self.delegate?.acceptedFriendRequest(from: request)
-            
-            completed()
-        }
+        dbRef.child("users").child(firUser!.uid).child("friendRequests").child(friendRequests.last!.userID).removeValue()
         
     }
     
     func declineLastFriendRequest() {
         
-        
-        _ = self.friendRequests.popLast()
-        
-        var friendRequestsDict = Dictionary<String, Bool>()
-        
-        for i in friendRequests {
-            friendRequestsDict[i.userID] = true
+        if friendRequests.last == nil {
+            return
         }
         
-        dbRef.child("users").child(firUser!.uid).child("friendRequests").setValue(friendRequestsDict)
+        dbRef.child("users").child(firUser!.uid).child("friendRequests").child(friendRequests.last!.userID).removeValue()
+        
+        _ = friendRequests.popLast()
+        
     }
     
     //Start listening for incoming changes. - Listening to (gameinvites), friendrequests, friends, games
@@ -428,31 +396,30 @@ class Player {
                             
                         if let games = dict["games"] as? Dictionary<String, AnyObject> {
                             
+                            self.gameIDs = [String]()
+                            
                             for game in games {
                                 
                                 if let gameDict = game.value as? Dictionary<String, AnyObject> {
-                                    
-                                    for i in gameDict {
+                                    print("Found gameDict")
                                         
-                                        if let host = i.value["host"] as? String {
+                                        if let host = gameDict["host"] as? String {
                                             if host == self.firUser!.uid {
-                                                self.gameIDs.append(game.key)
+                                                self.gameIDs.append(game.key); print("Host!")
                                             }
                                         }
                                         
-                                        if let player = i.value["player"] as? String {
+                                        if let player = gameDict["player"] as? String {
                                             if player == self.firUser!.uid {
-                                                self.gameIDs.append(game.key)
+                                                self.gameIDs.append(game.key); print("Player!")
                                             }
                                         }
-                                        
-                                    }
-                                    
                                 }
                                 
                             }
                             
                         }
+                        
                         self.delegate?.playerObserverRan(player: self)
                     }
                     
@@ -467,83 +434,42 @@ class Player {
     
     func sendFriendRequest(to userID: String) {
         
-        dbRef.child("users").child(userID).child("friendRequests").observeSingleEvent(of: .value) { (snapshot) in
-            
-            var requests = Dictionary<String, Bool>()
-            
-            if let friendRequests = snapshot.value as? Dictionary<String, Bool> {
-                
-                for i in friendRequests {
-                    requests[i.key] = true
-                }
-                
-            }
-            
-            if let _ = requests[self.firUser!.uid] {
-                
-                self.delegate?.errorOccured(error: StringError(ErrorType.FriendRequestAlreadySent))
-                
-                return
-            }
-            
-            requests[self.firUser!.uid] = true
-            
-            self.dbRef.child("users").child(userID).child("friendRequests").setValue(requests)
-            self.delegate?.friendRequestSent(to: userID)
-            
-        }
+        dbRef.child("users").child(userID).child("friendRequests").child(firUser!.uid).setValue(true)
         
+        delegate?.friendRequestSent(to: userID)
         
     }
     
     func sendGameRequest(to userID: String) {
         
-        dbRef.child("users").child(userID).child("gameRequests").observeSingleEvent(of: .value) { (snapshot) in
-            
-            var requests = Dictionary<String, Bool>()
-            
-            if let gameRequests = snapshot.value as? Dictionary<String, Bool> {
-                
-                for i in gameRequests {
-                    requests[i.key] = true
-                }
-                
-            }
-            
-            requests[self.firUser!.uid] = true
-            
-            self.dbRef.child("users").child(userID).child("gameRequests").setValue(requests)
-            self.delegate?.gameRequestSent(to: userID)
-        }
+        dbRef.child("users").child(userID).child("gameRequests").child(firUser!.uid).setValue(true)
+        
+        delegate?.gameRequestSent(to: userID)
         
     }
     
     func declineLastGameRequest() {
         
-        _ = gameRequests.popLast()
-        
-        var gameRequestsDict = Dictionary<String, Bool>()
-        
-        for i in gameRequests {
-            gameRequestsDict[i.userID] = true
+        if gameRequests.last == nil {
+            return
         }
         
-        dbRef.child("users").child(firUser!.uid).child("gameRequests").setValue(gameRequestsDict)
+        dbRef.child("users").child(firUser!.uid).child("gameRequests").child(gameRequests.last!.userID).removeValue()
+        
+        _ = gameRequests.popLast()
     }
     
     func acceptLastGameRequest() {
         
-        GameManager().createGame(hostUID: gameRequests.last!.userID, playerUID: firUser!.uid)
-        
-        _ = gameRequests.popLast()
-        
-        var gameRequestsDict = Dictionary<String, Bool>()
-        
-        for i in gameRequests {
-            gameRequestsDict[i.userID] = true
+        if gameRequests.last == nil {
+            return
         }
         
-        dbRef.child("users").child(firUser!.uid).child("gameRequests").setValue(gameRequestsDict)
+        GameManager().createGame(hostUID: gameRequests.last!.userID, playerUID: firUser!.uid)
+        
+        dbRef.child("users").child(firUser!.uid).child("gameRequests").child(gameRequests.last!.userID).removeValue()
+        
+        _ = gameRequests.popLast()
     }
     
 }

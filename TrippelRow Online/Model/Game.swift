@@ -99,14 +99,20 @@ class Game {
                 }
                 
                 if let board = game["board"] as? Dictionary<String, AnyObject> {
-                    //Download board
                     
-                    if let dictBoard = board["board"] as? Dictionary<Int, String> {
+                    if let dictBoard = board["gameBoard"] as? Dictionary<String, String> {
                         
-                        let gameBoard = Board()
-                        gameBoard.board = dictBoard
+                        var gameBoard = [Int : String]()
                         
-                        self.board = gameBoard
+                        for i in 0...8 {
+                            
+                            gameBoard[i] = dictBoard["\(i)"]
+                            
+                        }
+                        let boardObject = Board()
+                        boardObject.board = gameBoard
+                        
+                        self.board = boardObject
                     }
                     
                 }
@@ -131,28 +137,10 @@ class Game {
     
     func uploadData() {
         
-        var gameDict = Dictionary<String, AnyObject>()
-        
-        gameDict["host"] = host.userID as AnyObject
-        gameDict["player"] = player.userID as AnyObject
-        
-        gameDict["isFinished"] = isFinished as AnyObject
-        
-        gameDict["currentRound"] = currentRound as AnyObject
-        gameDict["hostScore"] = hostScore as AnyObject
-        gameDict["playerScore"] = playerScore as AnyObject
-        
-        var boardObj = Dictionary<String, AnyObject>()
-        
-        var dictBoard = Dictionary<Int, String>()
-        
-        dictBoard = board.board
-        
-        boardObj["board"] = dictBoard as AnyObject
-        
-        gameDict["board"] = board as AnyObject
+        let gameDict: [String : Any] = ["host" : host.userID, "player" : player.userID, "isFinished" : isFinished, "currentRound" : currentRound, "hostScore" : hostScore, "playerScore" : playerScore, "board" : ["gameBoard" : board.board]]
         
         dbRef.child("games").child(id).setValue(gameDict)
+        
     }
     
 }

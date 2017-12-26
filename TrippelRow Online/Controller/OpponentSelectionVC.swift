@@ -24,11 +24,25 @@ class OpponentSelectionVC: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.delegate = self
         tableView.dataSource = self
         
+        updateTableView()
+    }
+    
+    func playerObserverRan(player: Player) {
+        
+        updateTableView()
+    }
+    
+    func updateTableView() {
+        
         friends = player.friends
         
         if friends == nil {
             
             tableView.isHidden = true
+            
+        } else {
+            
+            tableView.isEditing = false
             
         }
         

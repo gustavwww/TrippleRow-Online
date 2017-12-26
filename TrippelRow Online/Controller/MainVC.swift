@@ -56,8 +56,6 @@ class MainVC: UIViewController, PlayerDelegate, UITableViewDelegate, UITableView
                 return
             }
             
-            print(games!.count)
-            
             for i in games! {
                 
                 if i.isFinished {

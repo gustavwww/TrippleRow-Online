@@ -24,16 +24,29 @@ class FriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
         
         tableView.isHidden = true
         
-        self.friends = self.player.friends
+        updateTableView()
+    }
+    
+    func playerObserverRan(player: Player) {
+        
+        updateTableView()
+    }
+    
+    func updateTableView() {
+        
+        friends = player.friends
         
         if friends == nil {
             
-            self.tableView.isHidden = true
-            self.noFriendsLbl.isHidden = false
+            tableView.isHidden = true
+            
+        } else {
+            
+            tableView.isHidden = false
             
         }
         
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

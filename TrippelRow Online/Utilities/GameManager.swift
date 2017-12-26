@@ -20,28 +20,13 @@ class GameManager {
     
     func createGame(hostUID: String, playerUID: String) {
         
-        var gameDict = Dictionary<String, AnyObject>()
-        
-        gameDict["host"] = hostUID as AnyObject
-        gameDict["player"] = playerUID as AnyObject
-        
-        gameDict["isFinished"] = false as AnyObject
-        
-        gameDict["currentRound"] = 1 as AnyObject
-        gameDict["hostScore"] = 0 as AnyObject
-        gameDict["playerScore"] = 0 as AnyObject
-        
-        var board = Dictionary<String, AnyObject>() //What do you need?
-        
-        var dictBoard = Dictionary<Int, String>()
+        var gameBoard = [String : String]()
         
         for i in 0...8 {
-            dictBoard[i] = "empty"
+            gameBoard["\(i)"] = "empty"
         }
         
-        board["board"] = dictBoard as AnyObject
-        
-        gameDict["board"] = board as AnyObject
+        let gameDict: [String : Any] = ["host" : hostUID, "player" : playerUID, "isFinished" : false, "currentRound" : 1, "hostScore" : 0, "playerScore" : 0, "board" : ["gameBoard" : gameBoard]]
         
         dbRef.child("games").childByAutoId().setValue(gameDict)
         
@@ -118,14 +103,20 @@ class GameManager {
                         }
                         
                         if let board = gameDict["board"] as? Dictionary<String, AnyObject> {
-                            //Download board
                             
-                            if let dictBoard = board["board"] as? Dictionary<Int, String> {
+                            if let dictBoard = board["gameBoard"] as? Dictionary<String, String> {
                                 
-                                let gameBoard = Board()
-                                gameBoard.board = dictBoard
+                                var gameBoard = [Int : String]()
                                 
-                                game.board = gameBoard
+                                for i in 0...8 {
+                                    
+                                    gameBoard[i] = dictBoard["\(i)"]
+                                    
+                                }
+                                let boardObject = Board()
+                                boardObject.board = gameBoard
+                                
+                                game.board = boardObject
                             }
                             
                         }

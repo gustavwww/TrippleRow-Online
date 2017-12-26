@@ -69,6 +69,7 @@ extension PlayerDelegate where Self: UIViewController {
             self.gotGameRequest(from: to.gameRequests, to: to)
         }))
         
+        present(alertController, animated: true, completion: nil)
     }
     
     
@@ -84,12 +85,9 @@ extension PlayerDelegate where Self: UIViewController {
         alertController.addAction(UIAlertAction(title: "Acceptera", style: .default, handler: { (action) in
             //Accept
             
-            to.acceptLastFriendRequest {
-                
-                self.gotFriendRequest(from: to.friendRequests, to: to)
-                
-            }
+            to.acceptLastFriendRequest()
             
+            self.gotFriendRequest(from: to.friendRequests, to: to)
         }))
         
         alertController.addAction(UIAlertAction(title: "Neka", style: .destructive, handler: { (action) in
@@ -98,7 +96,6 @@ extension PlayerDelegate where Self: UIViewController {
             to.declineLastFriendRequest()
             
             self.gotFriendRequest(from: to.friendRequests, to: to)
-            
         }))
         
         present(alertController, animated: true, completion: nil)

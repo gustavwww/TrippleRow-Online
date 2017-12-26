@@ -43,10 +43,13 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
 
         player.delegate = self
         
+        buttons = [Int : UIButton]()
+        
         for i in 0...8 {
             buttons[i] = buttonViews[i]
         }
         
+        print("Setting up game")
         setupGame()
         
     }
@@ -286,6 +289,10 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
         
         //Board setup
         var buttonViews = buttons!
+        
+        print("Game: " + String(describing: game))
+        print("Board: " + String(describing: game.board))
+        
         game.board.getDictFromGameBoard(buttonViews: &buttonViews)
         buttons = buttonViews
     }
