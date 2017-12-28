@@ -23,7 +23,7 @@ class GameManager {
         var gameBoard = [String : String]()
         
         for i in 0...8 {
-            gameBoard["\(i)"] = "empty"
+            gameBoard["s\(i)"] = "empty"
         }
         
         let gameDict: [String : Any] = ["host" : hostUID, "player" : playerUID, "isFinished" : false, "currentRound" : 1, "hostScore" : 0, "playerScore" : 0, "board" : ["gameBoard" : gameBoard]]
@@ -110,7 +110,7 @@ class GameManager {
                                 
                                 for i in 0...8 {
                                     
-                                    gameBoard[i] = dictBoard["\(i)"]
+                                    gameBoard[i] = dictBoard["s\(i)"]
                                     
                                 }
                                 let boardObject = Board()
@@ -134,7 +134,7 @@ class GameManager {
                         if let user = users[i] as? Dictionary<String, AnyObject> {
                             
                             let detailedUser = DetailedUser()
-                            detailedUser.userID = hostUID
+                            detailedUser.userID = i
                             
                             
                             if let displayName = user["displayName"] as? String {

@@ -16,9 +16,10 @@ class SectionHeaderView: UIView {
         backgroundColor = UIColor.darkGray
         
         let label = UILabel()
-        label.frame = CGRect(x: 30, y: 0, width: tableView.frame.width, height: 18)
+        label.frame = CGRect(x: 30, y: 3, width: tableView.frame.width, height: 18)
         
-        let font = UIFont(name: "Avenir Next", size: 15)
+        let font = UIFont(name: "Avenir Next", size: 18)
+        
         
         label.font = font
         
@@ -26,7 +27,7 @@ class SectionHeaderView: UIView {
         
         if section == 0 {
         
-            label.text = "Aktiva Spel"
+            label.text = "Pågående Spel"
         
         } else {
             

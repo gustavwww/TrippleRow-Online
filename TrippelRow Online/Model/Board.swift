@@ -30,49 +30,69 @@ class Board {
         
         resetPosition(for: movedButton, with: new, boardView: boardView, animated: true)
         resetPosition(for: replaceButton, with: previous, boardView: boardView, animated: false)
+        //ADDED ANOTHER ONE INSTEAD OF CHANGING! - Try to set every normal piece to an image?
         
-        buttonViews[previous] = replaceButton
-        buttonViews[new] = movedButton
+        var newButtons = [Int : UIButton]()
         
-        updateToGameDict(buttonViews: buttonViews)
+        print("COUNT buttons: \(buttonViews.count)")
+        
+        for i in buttonViews {
+            
+            if i.key == previous {
+                newButtons[i.key] = replaceButton
+            } else if i.key == new {
+                newButtons[i.key] = movedButton
+            } else {
+                newButtons[i.key] = i.value
+            }
+            
+        }
+        print("COUNT newButtons: \(newButtons.count)")
+        buttonViews = newButtons
+        updateToGameDict(buttonViews: newButtons)
     }
     
     func getDictFromGameBoard(buttonViews: inout [Int : UIButton]) {
+        
+        var newButtons = buttonViews
         
         for i in 0...8 {
             
             if board[i] == "host" {
                 
-                buttonViews[i]?.imageView?.image = UIImage(named: "circle")
+                newButtons[i]?.setImage(UIImage(named: "circle"), for: .normal)
                 
             } else if board[i] == "player" {
                 
-                buttonViews[i]?.imageView?.image = UIImage(named: "cross")
+                newButtons[i]?.setImage(UIImage(named: "cross"), for: .normal)
                 
             } else {
                 
-                buttonViews[i]?.imageView?.image = nil
+                newButtons[i]?.setImage(nil, for: .normal)
                 
             }
             
         }
         
+        buttonViews = newButtons
     }
     
     func updateToGameDict(buttonViews: [Int : UIButton]) {
         
+        board = [Int : String]()
+        
         for i in 0...8 {
             
             if buttonViews[i]?.imageView?.image == UIImage(named: "circle") {
-                
+                print("\(i): host")
                 board[i] = "host"
                 
             } else if buttonViews[i]?.imageView?.image == UIImage(named: "cross") {
-                
+                print("\(i): player")
                 board[i] = "player"
                 
             } else {
-                
+                print("\(i): empty")
                 board[i] = "empty"
                 
             }

@@ -79,7 +79,7 @@ class AddFriendVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         if searchBar.text == nil || searchBar.text == "" {
             
             inSearchMode = false
-            
+            tableView.reloadData()
             return
         }
         inSearchMode = true

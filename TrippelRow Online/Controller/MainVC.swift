@@ -30,6 +30,8 @@ class MainVC: UIViewController, PlayerDelegate, UITableViewDelegate, UITableView
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.isHidden = true
+        
         activeGames = [Game]()
         finishedGames = [Game]()
         
@@ -38,23 +40,27 @@ class MainVC: UIViewController, PlayerDelegate, UITableViewDelegate, UITableView
     
     func playerObserverRan(player: Player) {
         
+        activeGames = [Game]()
+        finishedGames = [Game]()
+        
         gameIDs = player.gameIDs
         
         if gameIDs == nil {
+            self.tableView.isHidden = true
+            tableView.reloadData()
             return
         }
         
         GameManager().downloadMultipleGames(gameIDs: gameIDs) { (games, error) in
             
             if error != nil {
+                self.tableView.isHidden = true
+                self.tableView.reloadData()
                 self.errorOccured(error: error!)
                 return
             }
             
-            if games == nil {
-                
-                return
-            }
+            self.tableView.isHidden = false
             
             for i in games! {
                 
@@ -89,7 +95,7 @@ class MainVC: UIViewController, PlayerDelegate, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let view = SectionHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 21))
+        let view = SectionHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 30))
         
         view.setupView(section, tableView: tableView)
         
@@ -99,6 +105,14 @@ class MainVC: UIViewController, PlayerDelegate, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return 90
+    }
+    
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? GameCell {
+            cell.view.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

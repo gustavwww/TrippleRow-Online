@@ -106,7 +106,7 @@ class Game {
                         
                         for i in 0...8 {
                             
-                            gameBoard[i] = dictBoard["\(i)"]
+                            gameBoard[i] = dictBoard["s\(i)"]
                             
                         }
                         let boardObject = Board()
@@ -137,7 +137,15 @@ class Game {
     
     func uploadData() {
         
-        let gameDict: [String : Any] = ["host" : host.userID, "player" : player.userID, "isFinished" : isFinished, "currentRound" : currentRound, "hostScore" : hostScore, "playerScore" : playerScore, "board" : ["gameBoard" : board.board]]
+        var gameBoard = [String : String]()
+        
+        for i in 0...8 {
+            
+            gameBoard["s\(i)"] = board.board[i]
+            
+        }
+        
+        let gameDict: [String : Any] = ["host" : host.userID, "player" : player.userID, "isFinished" : isFinished, "currentRound" : currentRound, "hostScore" : hostScore, "playerScore" : playerScore, "board" : ["gameBoard" : gameBoard]]
         
         dbRef.child("games").child(id).setValue(gameDict)
         

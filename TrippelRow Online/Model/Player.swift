@@ -92,6 +92,7 @@ class Player {
             
             if error != nil {
                 self.delegate?.errorOccured(error: StringError(ErrorType.SignInError))
+                return
             }
             
             self.firUser = user

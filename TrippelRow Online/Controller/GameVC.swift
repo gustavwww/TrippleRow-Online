@@ -49,7 +49,8 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
             buttons[i] = buttonViews[i]
         }
         
-        print("Setting up game")
+        panGestures = [UIPanGestureRecognizer]()
+        
         setupGame()
         
     }
@@ -112,7 +113,10 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
         
         if game.currentRound <= 6 {
             
-            return
+            for i in buttons {
+                i.value.addTarget(self, action: #selector(self.buttonPressed(sender:)), for: .touchUpInside)
+            }
+            
         }
         
         for i in buttons {
@@ -126,65 +130,73 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
         
     }
     
-    var recentButtonMoved: UIButton!
-    var recentButtonIndex: Int!
     @objc func gestureRecognized(panGesture: UIPanGestureRecognizer) {
         
-        if panGesture.state == .ended {
-            
-            if recentButtonMoved != nil && recentButtonIndex != nil {
-                
-                panGestureEnded(panGesture: panGesture, button: recentButtonMoved, buttonIndex: recentButtonIndex)
-                
-            }
-            
+        if game.currentRound <= 6 {
             return
         }
         
-        for i in 0...8 {
-
-            if buttons[i]?.imageView?.image == nil || buttons[i]?.imageView?.image != UIImage(named: myImageType) || !isMyTurn {
-                continue
-            }
-
-            if panGesture.velocity(in: buttons[i]).x > 0 || panGesture.velocity(in: buttons[i]).x < 0 || panGesture.velocity(in: buttons[i]).y > 0 || panGesture.velocity(in: buttons[i]).y < 0 {
-                //Button "i" is being moved
-
-                recentButtonMoved = buttons[i]
-                recentButtonIndex = i
-
-                buttons[i]?.center = panGesture.translation(in: buttons[i])
-                panGesture.setTranslation(CGPoint.zero, in: buttons[i])
-
-            }
-        }
+        let button: UIButton = panGesture.view as! UIButton
         
+        if panGesture.state == .ended {
+            
+            var buttonIndex: Int = 0
+            
+            for i in 0...8 {
+                
+                if buttons[i] == button {
+                    buttonIndex = i
+                }
+                
+            }
+            
+            panGestureEnded(panGesture: panGesture, button: button, buttonIndex: buttonIndex)
+            
+            return
+        }
+
+        if button.imageView?.image == nil || button.imageView?.image != UIImage(named: myImageType) || !isMyTurn {
+            return
+        }
+
+        //Button is being moved
+        
+        let translation = panGesture.translation(in: button)
+        
+        button.center = CGPoint(x: button.center.x + translation.x, y: button.center.y + translation.y)
+        
+        panGesture.setTranslation(CGPoint.zero, in: button)
     }
     
-    func panGestureEnded(panGesture: UIPanGestureRecognizer, button: UIButton, buttonIndex: Int) {
+    func panGestureEnded(panGesture: UIPanGestureRecognizer, button: UIButton, buttonIndex: Int) { //Something wrong here
         
         let position = game.board.getCurrentPosition(of: button, boardView: boardView) //Return either nil, or index 0-8
         
         if position == nil {
             //Out of bounds.
+            print("Out of bounds")
             game.board.resetPosition(for: button, with: buttonIndex, boardView: boardView, animated: true)
             return
         }
         
         if buttons[position!]?.imageView?.image != nil {
             //Already occupied
+            print("Already occupied")
             game.board.resetPosition(for: button, with: buttonIndex, boardView: boardView, animated: true)
             return
         }
         
         //Placing - make changes in buttons dictionary
-        
+        print("Making Move...")
         let previousPosition = buttonIndex
         let newPosition = position!
         
-        var buttonViews = buttons!
+        print(previousPosition)
+        print(newPosition)
         
-        game.board.moveToPosition(previous: previousPosition, new: newPosition, button: button, buttonViews: &buttonViews, boardView: boardView)
+        //Something might be wrong in moveToPosition
+        var buttonViews = buttons
+        game.board.moveToPosition(previous: previousPosition, new: newPosition, button: button, buttonViews: &buttonViews!, boardView: boardView)
         buttons = buttonViews
         
         increaseRoundAndUploadData()
@@ -209,6 +221,7 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
                 
             }
             
+            game.currentRound = 1
             game.board.resetBoard()
         }
         
@@ -223,8 +236,16 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
     
     func didReceiveGameUpdate(game: Game) {
         
+        updateViews()
+    }
+    
+    func updateViews() {
+        
         //Player begins.
-        if self.game.host.userID == self.player.firUser!.uid {
+        
+        let role = getRole()
+        
+        if role == "host" {
             
             self.myImageType = "circle"
             
@@ -234,7 +255,7 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
                 self.isMyTurn = false
             }
             
-        } else if self.game.player.userID == self.player.firUser!.uid {
+        } else if role == "player" {
             
             self.myImageType = "cross"
             
@@ -246,11 +267,6 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
             
         }
         //--------
-        
-        updateViews()
-    }
-    
-    func updateViews() {
         
         hostLbl.text = game.host.displayName
         playerLbl.text = game.player.displayName
@@ -288,27 +304,27 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
         }
         
         //Board setup
-        var buttonViews = buttons!
-        
-        print("Game: " + String(describing: game))
-        print("Board: " + String(describing: game.board))
-        
-        game.board.getDictFromGameBoard(buttonViews: &buttonViews)
+        var buttonViews = buttons
+        game.board.getDictFromGameBoard(buttonViews: &buttonViews!)
         buttons = buttonViews
+        
     }
     
-    func buttonPressed(sender: UIButton) {
+    @objc func buttonPressed(sender: UIButton) {
+        
+        if !isMyTurn {
+            return
+        }
         
         if game.currentRound > 6 {
             return
         }
         
         if sender.imageView?.image != nil {
-            
             return
         }
         
-        sender.imageView?.image = UIImage(named: myImageType)
+        sender.setImage(UIImage(named: myImageType), for: .normal)
         
         game.board.updateToGameDict(buttonViews: buttons)
         

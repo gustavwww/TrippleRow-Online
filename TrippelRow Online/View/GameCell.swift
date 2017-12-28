@@ -12,6 +12,7 @@ class GameCell: UITableViewCell {
 
     
     @IBOutlet weak var gameLbl: UILabel!
+    @IBOutlet weak var view: UIView!
     
     func setupCell(gameLbl: String) {
         
