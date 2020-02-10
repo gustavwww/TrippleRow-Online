@@ -30,7 +30,6 @@ class Board {
         
         resetPosition(for: movedButton, with: new, boardView: boardView, animated: true)
         resetPosition(for: replaceButton, with: previous, boardView: boardView, animated: false)
-        //ADDED ANOTHER ONE INSTEAD OF CHANGING! - Try to set every normal piece to an image?
         
         var newButtons = [Int : UIButton]()
         
@@ -49,10 +48,10 @@ class Board {
         }
         print("COUNT newButtons: \(newButtons.count)")
         buttonViews = newButtons
-        updateToGameDict(buttonViews: newButtons)
+        updateDataToGameDict(buttonViews: newButtons)
     }
     
-    func getDictFromGameBoard(buttonViews: inout [Int : UIButton]) {
+    func getDataFromGameBoard(buttonViews: inout [Int : UIButton]) {
         
         var newButtons = buttonViews
         
@@ -68,7 +67,7 @@ class Board {
                 
             } else {
                 
-                newButtons[i]?.setImage(nil, for: .normal)
+                newButtons[i]?.imageView?.image = nil
                 
             }
             
@@ -77,7 +76,7 @@ class Board {
         buttonViews = newButtons
     }
     
-    func updateToGameDict(buttonViews: [Int : UIButton]) {
+    func updateDataToGameDict(buttonViews: [Int : UIButton]) {
         
         board = [Int : String]()
         

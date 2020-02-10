@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Firebase
+import FirebaseDatabase
 
 protocol GameDelegate {
     
@@ -145,7 +146,7 @@ class Game {
             
         }
         
-        let gameDict: [String : Any] = ["host" : host.userID, "player" : player.userID, "isFinished" : isFinished, "currentRound" : currentRound, "hostScore" : hostScore, "playerScore" : playerScore, "board" : ["gameBoard" : gameBoard]]
+        let gameDict: [String : Any] = ["board" : ["gameBoard" : gameBoard], "currentRound" : currentRound, "host" : host.userID, "hostScore" : hostScore, "isFinished" : isFinished, "player" : player.userID, "playerScore" : playerScore]
         
         dbRef.child("games").child(id).setValue(gameDict)
         

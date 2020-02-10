@@ -47,7 +47,7 @@ extension PlayerDelegate where Self: UIViewController {
     //Handling gameRequests
     func gotGameRequest(from: [DBUser], to: Player) {
         
-        if from.count == 0 {
+        if from.isEmpty {
             return
         }
         
@@ -76,7 +76,7 @@ extension PlayerDelegate where Self: UIViewController {
     //Handling friendRequests
     func gotFriendRequest(from: [DBUser], to: Player) {
         
-        if from.count == 0 {
+        if from.isEmpty {
             return
         }
         

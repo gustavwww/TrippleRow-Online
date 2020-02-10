@@ -88,14 +88,19 @@ class Player {
     
     func signInUser(email: String, password: String) {
         
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             
             if error != nil {
                 self.delegate?.errorOccured(error: StringError(ErrorType.SignInError))
                 return
             }
             
-            self.firUser = user
+            if result == nil {
+                self.delegate?.errorOccured(error: StringError(ErrorType.SignInError))
+                return
+            }
+            
+            self.firUser = result!.user
             
             self.setStatus(status: .Online)
             
@@ -108,14 +113,19 @@ class Player {
     //Used for new and old facebook accounts
     func signInUser(credential: AuthCredential) { //Setting displayName
         
-        Auth.auth().signIn(with: credential) { (user, error) in
+        Auth.auth().signInAndRetrieveData(with: credential) { (result, error) in
             
             if error != nil {
                 self.delegate?.errorOccured(error: StringError(ErrorType.FacebookSignInError))
                 return
             }
             
-            self.firUser = user
+            if result == nil {
+                self.delegate?.errorOccured(error: StringError(ErrorType.FacebookSignInError))
+                return
+            }
+            
+            self.firUser = result?.user
             
             self.hasBeenOnlineBefore(completed: { (hasBeenOnline) in
                 
@@ -169,14 +179,19 @@ class Player {
     //Used for new accounts
     func createUser(email: String, password: String, displayName: String) { //Setting displayName
         
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             
             if error != nil {
                 self.delegate?.errorOccured(error: error!)
                 return
             }
             
-            self.firUser = user
+            if result == nil {
+                self.delegate?.errorOccured(error: StringError(ErrorType.CreateUserError))
+                return
+            }
+            
+            self.firUser = result!.user
             
             self.setDisplayName(displayName: displayName)
             self.setDBEmail(email: email)
@@ -217,7 +232,9 @@ class Player {
             delegate?.errorOccured(error: StringError(ErrorType.SignOutError))
         }
         
-        setStatus(status: .Offline)
+        if Auth.auth().currentUser != nil {
+            setStatus(status: .Offline)
+        }
         
     }
     
@@ -225,7 +242,7 @@ class Player {
         
         if status == .Online {
             dbRef.child("users").child(firUser!.uid).child("status").setValue("online")
-        } else if status == .Offline {
+        } else {
             dbRef.child("users").child(firUser!.uid).child("status").setValue("offline")
         }
         
@@ -251,7 +268,7 @@ class Player {
     
     func acceptLastFriendRequest() {
         
-        if friendRequests.last == nil {
+        if friendRequests.isEmpty {
             return
         }
         
@@ -275,6 +292,8 @@ class Player {
         //Removing request
         
         dbRef.child("users").child(firUser!.uid).child("friendRequests").child(friendRequests.last!.userID).removeValue()
+        
+        _ = self.friendRequests.popLast()
         
     }
     

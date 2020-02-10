@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras om ordentligt.
+class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Något är fel.
 
     //These should come from MainVC
     var player: Player!
@@ -42,6 +42,11 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
         super.viewDidLoad()
 
         player.delegate = self
+        
+        setup()
+    }
+    
+    func setup() {
         
         buttons = [Int : UIButton]()
         
@@ -84,7 +89,7 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
     }
     
     //Used when game is finished.
-    func disapleInteracton() {
+    func disableInteracton() {
         
         for i in buttonViews {
             i.isUserInteractionEnabled = false
@@ -179,12 +184,29 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
             return
         }
         
-        if buttons[position!]?.imageView?.image != nil {
-            //Already occupied
-            print("Already occupied")
-            game.board.resetPosition(for: button, with: buttonIndex, boardView: boardView, animated: true)
-            return
+        let buttonImg = buttons[position!]?.imageView?.image // Something wrong here
+        
+        if let image = buttonImg {
+            
+            let buttonDataImage = UIImagePNGRepresentation(image)
+            let crossDataImage = UIImagePNGRepresentation(UIImage(named: "cross")!)
+            let circleDataImage = UIImagePNGRepresentation(UIImage(named: "circle")!)
+            
+            if buttonDataImage == crossDataImage || buttonDataImage == circleDataImage {
+                //Already occupied
+                print("Already occupied")
+                game.board.resetPosition(for: button, with: buttonIndex, boardView: boardView, animated: true)
+                return
+            }
+            
         }
+        
+//        if buttons[position!]?.imageView?.image == nil {
+//            //Already occupied
+//            print("Already occupied")
+//            game.board.resetPosition(for: button, with: buttonIndex, boardView: boardView, animated: true)
+//            return
+//        }
         
         //Placing - make changes in buttons dictionary
         print("Making Move...")
@@ -282,8 +304,8 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
         }
         
         if game.isFinished {
-            
-            disapleInteracton()
+            //TODO: Further winning management.
+            disableInteracton()
             
             switch game.getWinner()!.userID {
                 
@@ -305,7 +327,7 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
         
         //Board setup
         var buttonViews = buttons
-        game.board.getDictFromGameBoard(buttonViews: &buttonViews!)
+        game.board.getDataFromGameBoard(buttonViews: &buttonViews!)
         buttons = buttonViews
         
     }
@@ -320,13 +342,13 @@ class GameVC: UIViewController, PlayerDelegate, GameDelegate { //Behöver göras
             return
         }
         
-        if sender.imageView?.image != nil {
+        if sender.imageView?.image != nil { //Wrong here and n the same above
             return
         }
         
         sender.setImage(UIImage(named: myImageType), for: .normal)
         
-        game.board.updateToGameDict(buttonViews: buttons)
+        game.board.updateDataToGameDict(buttonViews: buttons)
         
         increaseRoundAndUploadData()
     }
